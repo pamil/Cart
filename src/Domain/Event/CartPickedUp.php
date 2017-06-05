@@ -6,7 +6,7 @@ namespace Pamil\Cart\Domain\Event;
 
 use Pamil\Cart\Domain\Model\CartId;
 
-final class CartWasPickedUp
+final class CartPickedUp
 {
     /** @var CartId */
     private $cartId;

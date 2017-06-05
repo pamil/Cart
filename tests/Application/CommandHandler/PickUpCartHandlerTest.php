@@ -12,7 +12,7 @@ use Broadway\EventSourcing\EventSourcingRepository;
 use Broadway\EventStore\EventStore;
 use Pamil\Cart\Application\Command\PickUpCart;
 use Pamil\Cart\Application\CommandHandler\PickUpCartHandler;
-use Pamil\Cart\Domain\Event\CartWasPickedUp;
+use Pamil\Cart\Domain\Event\CartPickedUp;
 use Pamil\Cart\Domain\Model\Cart;
 use Pamil\Cart\Domain\Model\CartId;
 use Pamil\Cart\Infrastructure\Repository\BroadwayCartRepository;
@@ -41,7 +41,7 @@ final class PickUpCartHandlerTest extends CommandHandlerScenarioTestCase
             ->withAggregateId($cartId->toString())
             ->when(new PickUpCart($cartId))
             ->then([
-                new CartWasPickedUp($cartId),
+                new CartPickedUp($cartId),
             ])
         ;
     }
@@ -57,7 +57,7 @@ final class PickUpCartHandlerTest extends CommandHandlerScenarioTestCase
 
         $this->scenario
             ->withAggregateId($cartId->toString())
-            ->given([new CartWasPickedUp($cartId)])
+            ->given([new CartPickedUp($cartId)])
             ->when(new PickUpCart($cartId))
         ;
     }

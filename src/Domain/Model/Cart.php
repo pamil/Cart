@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Pamil\Cart\Domain\Model;
 
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
-use Pamil\Cart\Domain\Event\CartWasPickedUp;
+use Pamil\Cart\Domain\Event\CartPickedUp;
 
 final class Cart extends EventSourcedAggregateRoot
 {
@@ -23,7 +23,7 @@ final class Cart extends EventSourcedAggregateRoot
     public static function pickUp(CartId $cartId): self
     {
         $cart = new self();
-        $cart->apply(new CartWasPickedUp($cartId));
+        $cart->apply(new CartPickedUp($cartId));
 
         return $cart;
     }
@@ -49,7 +49,7 @@ final class Cart extends EventSourcedAggregateRoot
         return $this->id->toString();
     }
 
-    protected function applyCartWasPickedUp(CartWasPickedUp $event): void
+    protected function applyCartPickedUp(CartPickedUp $event): void
     {
         $this->id = $event->cartId();
         $this->items = new CartItems($event->cartId());
