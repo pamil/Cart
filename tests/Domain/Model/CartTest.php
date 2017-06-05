@@ -38,7 +38,7 @@ final class CartTest extends AggregateRootScenarioTestCase
                 return Cart::pickUp($cartId);
             })
             ->then([
-                new CartPickedUp($cartId),
+                new CartPickedUp($cartId->toString()),
             ])
         ;
     }
@@ -50,13 +50,13 @@ final class CartTest extends AggregateRootScenarioTestCase
 
         $this->scenario
             ->given([
-                new CartPickedUp($cartId),
+                new CartPickedUp($cartId->toString()),
             ])
             ->when(function (Cart $cart) {
                 $cart->addItem('Fallout', new Quantity(2));
             })
             ->then([
-                new CartItemAdded('Fallout', new Quantity(2)),
+                new CartItemAdded('Fallout', 2),
             ])
         ;
     }
@@ -68,14 +68,14 @@ final class CartTest extends AggregateRootScenarioTestCase
 
         $this->scenario
             ->given([
-                new CartPickedUp($cartId),
-                new CartItemAdded('Fallout', new Quantity(2)),
+                new CartPickedUp($cartId->toString()),
+                new CartItemAdded('Fallout', 2),
             ])
             ->when(function (Cart $cart) {
                 $cart->adjustItemQuantity('Fallout', new Quantity(1));
             })
             ->then([
-                new CartItemQuantityAdjusted('Fallout', new Quantity(1)),
+                new CartItemQuantityAdjusted('Fallout', 1),
             ])
         ;
     }
@@ -87,8 +87,8 @@ final class CartTest extends AggregateRootScenarioTestCase
 
         $this->scenario
             ->given([
-                new CartPickedUp($cartId),
-                new CartItemAdded('Fallout', new Quantity(2)),
+                new CartPickedUp($cartId->toString()),
+                new CartItemAdded('Fallout', 2),
             ])
             ->when(function (Cart $cart) {
                 $cart->removeItem('Fallout');
@@ -106,8 +106,8 @@ final class CartTest extends AggregateRootScenarioTestCase
 
         $this->scenario
             ->given([
-                new CartPickedUp($cartId),
-                new CartItemAdded('Fallout', new Quantity(2)),
+                new CartPickedUp($cartId->toString()),
+                new CartItemAdded('Fallout', 2),
             ])
             ->when(function (Cart $cart) {
                 $cart->adjustItemQuantity('Fallout', new Quantity(0));
@@ -125,14 +125,14 @@ final class CartTest extends AggregateRootScenarioTestCase
 
         $this->scenario
             ->given([
-                new CartPickedUp($cartId),
-                new CartItemAdded('Fallout', new Quantity(2)),
+                new CartPickedUp($cartId->toString()),
+                new CartItemAdded('Fallout', 2),
             ])
             ->when(function (Cart $cart) {
                 $cart->addItem('Fallout', new Quantity(3));
             })
             ->then([
-                new CartItemQuantityAdjusted('Fallout', new Quantity(5)),
+                new CartItemQuantityAdjusted('Fallout', 5),
             ])
         ;
     }
@@ -148,7 +148,7 @@ final class CartTest extends AggregateRootScenarioTestCase
 
         $this->scenario
             ->given([
-                new CartPickedUp($cartId),
+                new CartPickedUp($cartId->toString()),
             ])
             ->when(function (Cart $cart) {
                 $cart->adjustItemQuantity('Fallout', new Quantity(1));
@@ -167,7 +167,7 @@ final class CartTest extends AggregateRootScenarioTestCase
 
         $this->scenario
             ->given([
-                new CartPickedUp($cartId),
+                new CartPickedUp($cartId->toString()),
             ])
             ->when(function (Cart $cart) {
                 $cart->removeItem('Fallout');

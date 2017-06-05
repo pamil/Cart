@@ -9,6 +9,7 @@ use Pamil\Cart\Application\Command\PickUpCart;
 use Pamil\Cart\Application\Exception\CartAlreadyPickedUpException;
 use Pamil\Cart\Application\Repository\CartRepository;
 use Pamil\Cart\Domain\Model\Cart;
+use Pamil\Cart\Domain\Model\CartId;
 
 final class PickUpCartHandler implements CommandHandler
 {
@@ -27,7 +28,7 @@ final class PickUpCartHandler implements CommandHandler
             throw CartAlreadyPickedUpException::create($command->cartId());
         }
 
-        $cart = Cart::pickUp($command->cartId());
+        $cart = Cart::pickUp(CartId::fromString($command->cartId()));
 
         $this->cartRepository->save($cart);
     }

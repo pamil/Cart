@@ -9,7 +9,6 @@ use Broadway\Repository\AggregateNotFoundException;
 use Pamil\Cart\Application\Exception\CartNotFoundException;
 use Pamil\Cart\Application\Repository\CartRepository;
 use Pamil\Cart\Domain\Model\Cart;
-use Pamil\Cart\Domain\Model\CartId;
 
 final class BroadwayCartRepository implements CartRepository
 {
@@ -22,18 +21,18 @@ final class BroadwayCartRepository implements CartRepository
     }
 
     /** {@inheritdoc} */
-    public function get(CartId $cartId): Cart
+    public function get(string $cartId): Cart
     {
         try {
             /** @noinspection PhpIncompatibleReturnTypeInspection */
-            return $this->eventSourcingRepository->load($cartId->toString());
+            return $this->eventSourcingRepository->load($cartId);
         } catch (AggregateNotFoundException $exception) {
             throw CartNotFoundException::create($cartId);
         }
     }
 
     /** {@inheritdoc} */
-    public function has(CartId $cartId): bool
+    public function has(string $cartId): bool
     {
         try {
             $this->get($cartId);

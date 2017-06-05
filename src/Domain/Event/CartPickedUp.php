@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace Pamil\Cart\Domain\Event;
 
-use Pamil\Cart\Domain\Model\CartId;
-
 final class CartPickedUp
 {
-    /** @var CartId */
+    /** @var string */
     private $cartId;
 
-    public function __construct(CartId $cartId)
+    public function __construct(string $cartId)
     {
         $this->cartId = $cartId;
     }
 
-    public function cartId(): CartId
+    public function cartId(): string
     {
         return $this->cartId;
     }

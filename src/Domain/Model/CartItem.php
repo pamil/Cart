@@ -30,7 +30,7 @@ final class CartItem extends SimpleEventSourcedEntity
             return;
         }
 
-        $this->apply(new CartItemQuantityAdjusted($this->cartItemId, $quantity));
+        $this->apply(new CartItemQuantityAdjusted($this->cartItemId, $quantity->toInt()));
     }
 
     public function increaseQuantity(int $delta): void
@@ -40,6 +40,6 @@ final class CartItem extends SimpleEventSourcedEntity
 
     public function applyCartItemQuantityAdjusted(CartItemQuantityAdjusted $event): void
     {
-        $this->quantity = $event->quantity();
+        $this->quantity = new Quantity($event->quantity());
     }
 }

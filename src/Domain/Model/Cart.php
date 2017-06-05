@@ -23,7 +23,7 @@ final class Cart extends EventSourcedAggregateRoot
     public static function pickUp(CartId $cartId): self
     {
         $cart = new self();
-        $cart->apply(new CartPickedUp($cartId));
+        $cart->apply(new CartPickedUp($cartId->toString()));
 
         return $cart;
     }
@@ -51,8 +51,8 @@ final class Cart extends EventSourcedAggregateRoot
 
     protected function applyCartPickedUp(CartPickedUp $event): void
     {
-        $this->id = $event->cartId();
-        $this->items = new CartItems($event->cartId());
+        $this->id = CartId::fromString($event->cartId());
+        $this->items = new CartItems(CartId::fromString($event->cartId()));
     }
 
     /** {@inheritdoc} */

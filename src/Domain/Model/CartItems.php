@@ -30,14 +30,14 @@ final class CartItems extends SimpleEventSourcedEntity
             return;
         }
 
-        $this->apply(new CartItemAdded($cartItemId, $quantity));
+        $this->apply(new CartItemAdded($cartItemId, $quantity->toInt()));
     }
 
     /** @throws CartItemNotFoundException */
     public function get(string $cartItemId): CartItem
     {
         if (!$this->has($cartItemId)) {
-            throw CartItemNotFoundException::create($this->cartId, $cartItemId);
+            throw CartItemNotFoundException::create($this->cartId->toString(), $cartItemId);
         }
 
         return $this->cartItems[$cartItemId];
@@ -47,7 +47,7 @@ final class CartItems extends SimpleEventSourcedEntity
     public function remove(string $cartItemId): void
     {
         if (!$this->has($cartItemId)) {
-            throw CartItemNotFoundException::create($this->cartId, $cartItemId);
+            throw CartItemNotFoundException::create($this->cartId->toString(), $cartItemId);
         }
 
         $this->apply(new CartItemRemoved($cartItemId));
@@ -55,7 +55,7 @@ final class CartItems extends SimpleEventSourcedEntity
 
     protected function applyCartItemAdded(CartItemAdded $event): void
     {
-        $this->cartItems[$event->cartItemId()] = new CartItem($event->cartItemId(), $event->quantity());
+        $this->cartItems[$event->cartItemId()] = new CartItem($event->cartItemId(), new Quantity($event->quantity()));
     }
 
     protected function applyCartItemRemoved(CartItemRemoved $event): void

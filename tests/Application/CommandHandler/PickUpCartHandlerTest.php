@@ -39,9 +39,9 @@ final class PickUpCartHandlerTest extends CommandHandlerScenarioTestCase
 
         $this->scenario
             ->withAggregateId($cartId->toString())
-            ->when(new PickUpCart($cartId))
+            ->when(new PickUpCart($cartId->toString()))
             ->then([
-                new CartPickedUp($cartId),
+                new CartPickedUp($cartId->toString()),
             ])
         ;
     }
@@ -57,8 +57,8 @@ final class PickUpCartHandlerTest extends CommandHandlerScenarioTestCase
 
         $this->scenario
             ->withAggregateId($cartId->toString())
-            ->given([new CartPickedUp($cartId)])
-            ->when(new PickUpCart($cartId))
+            ->given([new CartPickedUp($cartId->toString())])
+            ->when(new PickUpCart($cartId->toString()))
         ;
     }
 }

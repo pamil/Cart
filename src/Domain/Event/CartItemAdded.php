@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Pamil\Cart\Domain\Event;
 
-use Pamil\Cart\Domain\Model\Quantity;
-
 final class CartItemAdded
 {
     /** @var string */
     private $cartItemId;
 
-    /** @var Quantity */
+    /** @var int */
     private $quantity;
 
-    public function __construct(string $cartItemId, Quantity $quantity)
+    public function __construct(string $cartItemId, int $quantity)
     {
         $this->cartItemId = $cartItemId;
         $this->quantity = $quantity;
@@ -25,7 +23,7 @@ final class CartItemAdded
         return $this->cartItemId;
     }
 
-    public function quantity(): Quantity
+    public function quantity(): int
     {
         return $this->quantity;
     }
