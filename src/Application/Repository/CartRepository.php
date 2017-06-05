@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Pamil\Cart\Application\Repository;
 
+use Pamil\Cart\Application\Exception\CartNotFoundException;
 use Pamil\Cart\Domain\Model\Cart;
 use Pamil\Cart\Domain\Model\CartId;
 

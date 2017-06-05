@@ -6,6 +6,7 @@ namespace Pamil\Cart\Application\CommandHandler;
 
 use Broadway\CommandHandling\CommandHandler;
 use Pamil\Cart\Application\Command\PickUpCart;
+use Pamil\Cart\Application\Exception\CartAlreadyPickedUpException;
 use Pamil\Cart\Application\Repository\CartRepository;
 use Pamil\Cart\Domain\Model\Cart;
 

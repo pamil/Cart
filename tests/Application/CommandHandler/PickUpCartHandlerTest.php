@@ -49,7 +49,7 @@ final class PickUpCartHandlerTest extends CommandHandlerScenarioTestCase
     /**
      * @test
      *
-     * @expectedException \Pamil\Cart\Application\CommandHandler\CartAlreadyPickedUpException
+     * @expectedException \Pamil\Cart\Application\Exception\CartAlreadyPickedUpException
      */
     public function it_fails_if_trying_to_pick_up_the_same_cart_twice(): void
     {

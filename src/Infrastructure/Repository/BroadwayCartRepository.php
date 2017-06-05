@@ -6,7 +6,7 @@ namespace Pamil\Cart\Infrastructure\Repository;
 
 use Broadway\EventSourcing\EventSourcingRepository;
 use Broadway\Repository\AggregateNotFoundException;
-use Pamil\Cart\Application\Repository\CartNotFoundException;
+use Pamil\Cart\Application\Exception\CartNotFoundException;
 use Pamil\Cart\Application\Repository\CartRepository;
 use Pamil\Cart\Domain\Model\Cart;
 use Pamil\Cart\Domain\Model\CartId;
