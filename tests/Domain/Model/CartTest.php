@@ -161,7 +161,7 @@ final class CartTest extends AggregateRootScenarioTestCase
      *
      * @expectedException \Pamil\Cart\Domain\Exception\CartItemNotFoundException
      */
-    public function cart_item_fails_while_removing_if_it_was_not_added_before()
+    public function cart_fails_while_removing_if_it_was_not_added_before()
     {
         $cartId = CartId::generate();
 
@@ -171,6 +171,29 @@ final class CartTest extends AggregateRootScenarioTestCase
             ])
             ->when(function (Cart $cart) {
                 $cart->removeItem('Fallout');
+            })
+        ;
+    }
+
+    /**
+     * @test
+     *
+     * @expectedException \Pamil\Cart\Domain\Exception\CartItemsLimitReachedException
+     */
+    public function cart_fails_if_trying_to_add_more_than_three_different_products()
+    {
+        $cartId = CartId::generate();
+
+        $this->scenario
+            ->given([
+                new CartPickedUp($cartId->toString()),
+                new CartItemAdded('Fallout', 3),
+                new CartItemAdded('Don\’t Starve', 5),
+                new CartItemAdded('Icewind Dale', 9),
+                new CartItemAdded('Fallout', 1),
+            ])
+            ->when(function (Cart $cart) {
+                $cart->addItem('Bloodborne', new Quantity(2));
             })
         ;
     }

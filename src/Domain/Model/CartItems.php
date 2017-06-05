@@ -8,6 +8,7 @@ use Broadway\EventSourcing\SimpleEventSourcedEntity;
 use Pamil\Cart\Domain\Event\CartItemAdded;
 use Pamil\Cart\Domain\Event\CartItemRemoved;
 use Pamil\Cart\Domain\Exception\CartItemNotFoundException;
+use Pamil\Cart\Domain\Exception\CartItemsLimitReachedException;
 
 final class CartItems extends SimpleEventSourcedEntity
 {
@@ -28,6 +29,10 @@ final class CartItems extends SimpleEventSourcedEntity
             $this->get($cartItemId)->increaseQuantity($quantity->toInt());
 
             return;
+        }
+
+        if (3 === count($this->cartItems)) {
+            throw CartItemsLimitReachedException::create($this->cartId->toString());
         }
 
         $this->apply(new CartItemAdded($cartItemId, $quantity->toInt()));
