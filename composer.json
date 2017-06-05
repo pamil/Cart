@@ -1,0 +1,26 @@
+{
+  "name": "pamil/cart",
+  "description": "",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kamil Kokot",
+      "email": "kamil@kokot.me",
+      "homepage": "http://kamil.kokot.me"
+    }
+  ],
+  "require": {
+    "php": "^7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pamil\\Cart\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Pamil\\Cart\\": "tests/"
+    }
+  }
+}
