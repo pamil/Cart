@@ -1,0 +1,6 @@
+broadway:
+    event_store:
+        dbal:
+            enabled: true
+            table: events
+            use_binary: false

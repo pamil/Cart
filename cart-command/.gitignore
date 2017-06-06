@@ -1,0 +1,7 @@
+/var/
+/vendor/
+
+/.env
+/composer.lock
+/humbuglog.json
+/humbuglog.txt
