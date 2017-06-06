@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pamil\CartCommand\Application\Controller;
+namespace Pamil\CartCommand\Application\Action;
 
 use Broadway\CommandHandling\CommandBus;
 use Pamil\CartCommand\Application\Command\PickUpCart;
@@ -10,7 +10,7 @@ use Pamil\CartCommand\Application\Exception\CartAlreadyPickedUpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CartController
+final class PickUpCartAction
 {
     /** @var CommandBus */
     private $commandBus;
@@ -20,7 +20,7 @@ final class CartController
         $this->commandBus = $commandBus;
     }
 
-    public function pickUpAction(string $cartId): Response
+    public function __invoke(string $cartId): Response
     {
         try {
             $this->commandBus->dispatch(new PickUpCart($cartId));

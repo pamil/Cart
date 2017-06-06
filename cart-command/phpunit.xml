@@ -1,4 +1,7 @@
 <phpunit >
+    <php>
+        <server name="KERNEL_CLASS" value="Pamil\CartCommand\Infrastructure\CartCommandKernel" />
+    </php>
     <testsuite name="Pamil\CartCommand">
         <directory suffix="Test.php">tests/</directory>
     </testsuite>

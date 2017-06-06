@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="pamil.cart_command.cart_controller" class="Pamil\CartCommand\Application\Controller\CartController">
+        <service id="pamil.cart_command.pick_up_cart.action" class="Pamil\CartCommand\Application\Action\PickUpCartAction">
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
-        <service id="pamil.cart_command.pick_up_cart_handler" class="Pamil\CartCommand\Application\CommandHandler\PickUpCartHandler">
+        <service id="pamil.cart_command.pick_up_cart.handler" class="Pamil\CartCommand\Application\CommandHandler\PickUpCartHandler">
             <argument type="service" id="pamil.cart_command.cart_repository" />
             <tag name="broadway.command_handler" />
         </service>
