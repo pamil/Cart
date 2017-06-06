@@ -2,26 +2,52 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Context\Domain;
+namespace Tests\Pamil\Cart\Behat\Context\Application;
 
 use Behat\Behat\Context\Context;
+use Broadway\EventHandling\SimpleEventBus;
+use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
+use Broadway\EventSourcing\EventSourcingRepository;
+use Broadway\EventStore\InMemoryEventStore;
+use Broadway\EventStore\TraceableEventStore;
+use Pamil\Cart\Application\Command\AddCartItem;
+use Pamil\Cart\Application\Command\AdjustCartItemQuantity;
+use Pamil\Cart\Application\Command\PickUpCart;
+use Pamil\Cart\Application\Command\RemoveCartItem;
+use Pamil\Cart\Application\CommandHandler\AddCartItemHandler;
+use Pamil\Cart\Application\CommandHandler\AdjustCartItemQuantityHandler;
+use Pamil\Cart\Application\CommandHandler\PickUpCartHandler;
+use Pamil\Cart\Application\CommandHandler\RemoveCartItemHandler;
 use Pamil\Cart\Domain\Event\CartItemAdded;
 use Pamil\Cart\Domain\Event\CartItemQuantityAdjusted;
 use Pamil\Cart\Domain\Event\CartItemRemoved;
 use Pamil\Cart\Domain\Event\CartPickedUp;
 use Pamil\Cart\Domain\Model\Cart;
 use Pamil\Cart\Domain\Model\CartId;
-use Pamil\Cart\Domain\Model\Quantity;
-use Tests\Pamil\Cart\Behat\DomainScenario;
+use Pamil\Cart\Infrastructure\Repository\BroadwayCartRepository;
+use Tests\Pamil\Cart\Behat\ApplicationScenario;
 
 final class CartContext implements Context
 {
-    /** @var DomainScenario  */
+    /** @var ApplicationScenario  */
     private $broadway;
 
     public function __construct()
     {
-        $this->broadway = new DomainScenario(Cart::class);
+        $eventStore = new TraceableEventStore(new InMemoryEventStore());
+        $cartRepository = new BroadwayCartRepository(new EventSourcingRepository(
+            $eventStore,
+            new SimpleEventBus(),
+            Cart::class,
+            new ReflectionAggregateFactory()
+        ));
+
+        $this->broadway = new ApplicationScenario($eventStore, [
+            new PickUpCartHandler($cartRepository),
+            new AddCartItemHandler($cartRepository),
+            new RemoveCartItemHandler($cartRepository),
+            new AdjustCartItemQuantityHandler($cartRepository),
+        ]);
     }
 
     /**
@@ -33,8 +59,8 @@ final class CartContext implements Context
 
         $this->broadway
             ->withAggregateId($cartId->toString())
-            ->when(function () use ($cartId) {
-                return Cart::pickUp($cartId);
+            ->when(function (string $cartId) {
+                return new PickUpCart($cartId);
             })
         ;
     }
@@ -44,8 +70,8 @@ final class CartContext implements Context
      */
     public function theCartShouldBePickedUp(): void
     {
-        $this->broadway->then(function (Cart $cart) {
-            return new CartPickedUp($cart->getAggregateRootId());
+        $this->broadway->then(function (string $cartId) {
+            return new CartPickedUp($cartId);
         });
     }
 
@@ -67,8 +93,8 @@ final class CartContext implements Context
      */
     public function iAddCartItemsToThatCart(int $number, string $cartItemId): void
     {
-        $this->broadway->when(function (Cart $cart) use ($number, $cartItemId) {
-            $cart->addItem($cartItemId, new Quantity($number));
+        $this->broadway->when(function (string $cartId) use ($number, $cartItemId) {
+            return new AddCartItem($cartId, $cartItemId, $number);
         });
     }
 
@@ -93,8 +119,8 @@ final class CartContext implements Context
      */
     public function iRemoveCartItemFromTheCart(string $cartItemId): void
     {
-        $this->broadway->when(function (Cart $cart) use ($cartItemId) {
-            $cart->removeItem($cartItemId);
+        $this->broadway->when(function (string $cartId) use ($cartItemId) {
+            return new RemoveCartItem($cartId, $cartItemId);
         });
     }
 
@@ -111,8 +137,8 @@ final class CartContext implements Context
      */
     public function iAdjustCartItemQuantity(string $cartItemId, int $number): void
     {
-        $this->broadway->when(function (Cart $cart) use ($cartItemId, $number) {
-            $cart->adjustItemQuantity($cartItemId, new Quantity($number));
+        $this->broadway->when(function (string $cartId) use ($number, $cartItemId) {
+            return new AdjustCartItemQuantity($cartId, $cartItemId, $number);
         });
     }
 
