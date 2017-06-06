@@ -95,6 +95,17 @@ final class ApplicationScenario
         return $this;
     }
 
+    public function thenNot($event): self
+    {
+        if (is_callable($event)) {
+            $event = $event($this->aggregateId);
+        }
+
+        Assert::assertNotContains($event, $this->getProducedEvents(), '', false, false);
+
+        return $this;
+    }
+
     public function thenOnly($events): self
     {
         if (is_callable($events)) {

@@ -42,7 +42,7 @@ Feature: Managing the cart
         When I add three "Fallout" cart items to that cart
         Then the "Fallout" cart item quantity should be adjusted to five
 
-    @domain
+    @domain @application
     Scenario: Trying to add more than three different products to the cart
         Given the cart was picked up
         And three "Fallout" cart items were added to the cart
