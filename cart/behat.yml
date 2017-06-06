@@ -10,11 +10,13 @@ default:
                 - pamil.context.domain.cart
                 - pamil.context.transform.number
 
-            tags: "@domain"
+            filters:
+                tags: "@domain"
 
         application:
             contexts_services:
                 - pamil.context.application.cart
                 - pamil.context.transform.number
 
-            tags: "@application"
+            filters:
+                tags: "@application"
