@@ -42,6 +42,6 @@ final class PickUpCartActionTest extends WebTestCase
         $response = $client->getResponse();
 
         $this->assertSame(409, $response->getStatusCode());
-        $this->assertSame('{"error":"Cart with ID 457e2ac8-8daf-47aa-a703-39b42d7f82ce has been already picked up!"}', $response->getContent());
+        $this->assertSame('{"error":"Cart with ID \"457e2ac8-8daf-47aa-a703-39b42d7f82ce\" has been already picked up!"}', $response->getContent());
     }
 }

@@ -15,10 +15,10 @@
 
     "broadway/broadway": "^1.0",
     "broadway/broadway-bundle": "^0.2.3",
+    "broadway/event-store-dbal": "^0.1.2",
     "ramsey/uuid": "^3.6",
     "symfony/framework-bundle": "^3.3",
-    "broadway/event-store-dbal": "^0.1.2"
-
+    "symfony/options-resolver": "^3.3"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7",
