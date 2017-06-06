@@ -1,5 +1,11 @@
 default:
     extensions:
+        FriendsOfBehat\CrossContainerExtension: ~
+
+        FriendsOfBehat\SymfonyExtension:
+            kernel:
+                class: Pamil\Cart\Infrastructure\PamilCartKernel
+
         FriendsOfBehat\ContextServiceExtension:
             imports:
                 - "tests/Behat/Resources/config/container.xml"
@@ -20,3 +26,12 @@ default:
 
             filters:
                 tags: "@application"
+
+        api:
+            contexts_services:
+                - pamil.context.api.cart
+                - pamil.context.hook.event_store
+                - pamil.context.transform.number
+
+            filters:
+                tags: "@api"

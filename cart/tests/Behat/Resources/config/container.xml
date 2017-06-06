@@ -5,11 +5,22 @@
             <tag name="fob.context_service" />
         </service>
 
+        <service id="pamil.context.hook.event_store" class="Tests\Pamil\Cart\Behat\Context\Hook\EventStoreContext">
+            <argument type="service" id="__symfony__.kernel" />
+            <tag name="fob.context_service" />
+        </service>
+
         <service id="pamil.context.domain.cart" class="Tests\Pamil\Cart\Behat\Context\Domain\CartContext">
             <tag name="fob.context_service" />
         </service>
 
         <service id="pamil.context.application.cart" class="Tests\Pamil\Cart\Behat\Context\Application\CartContext">
+            <tag name="fob.context_service" />
+        </service>
+
+        <service id="pamil.context.api.cart" class="Tests\Pamil\Cart\Behat\Context\Api\CartContext">
+            <argument type="service" id="__symfony__.broadway.event_store" />
+            <argument type="service" id="__symfony__.test.client" />
             <tag name="fob.context_service" />
         </service>
     </services>
