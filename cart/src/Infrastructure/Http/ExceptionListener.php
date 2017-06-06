@@ -7,6 +7,7 @@ namespace Pamil\Cart\Infrastructure\Http;
 use Pamil\Cart\Application\Exception\CartAlreadyPickedUpException;
 use Pamil\Cart\Application\Exception\CartNotFoundException;
 use Pamil\Cart\Domain\Exception\CartItemNotFoundException;
+use Pamil\Cart\Domain\Exception\CartItemsLimitReachedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -17,9 +18,10 @@ final class ExceptionListener
     /** @var int[] */
     private static $throwableToResponseCode = [
         CartAlreadyPickedUpException::class => Response::HTTP_CONFLICT,
+        CartItemNotFoundException::class => Response::HTTP_CONFLICT,
+        CartItemsLimitReachedException::class => Response::HTTP_FORBIDDEN,
         CartNotFoundException::class => Response::HTTP_NOT_FOUND,
         ExceptionInterface::class => Response::HTTP_BAD_REQUEST,
-        CartItemNotFoundException::class => Response::HTTP_CONFLICT,
     ];
 
     public function __invoke(GetResponseForExceptionEvent $event): void
