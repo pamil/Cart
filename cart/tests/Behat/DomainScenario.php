@@ -12,7 +12,7 @@ use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
 use PHPUnit\Framework\Assert;
 
-final class DomainScenario
+final class DomainScenario extends AbstractScenario
 {
     /** @var string */
     private $aggregateRootClass;
@@ -23,9 +23,6 @@ final class DomainScenario
     /** @var EventSourcedAggregateRoot|null */
     private $aggregateRoot;
 
-    /** @var string */
-    private $aggregateId = '1';
-
     /** @var array */
     private $producedEvents = [];
 
@@ -35,14 +32,8 @@ final class DomainScenario
         $this->aggregateFactory = $aggregateFactory ?: new ReflectionAggregateFactory();
     }
 
-    public function withAggregateId(string $aggregateId): self
-    {
-        $this->aggregateId = $aggregateId;
-
-        return $this;
-    }
-
-    public function given($events): self
+    /** {@inheritdoc} */
+    public function given($events): Scenario
     {
         if (!is_iterable($events)) {
             $events = [$events];
@@ -63,63 +54,29 @@ final class DomainScenario
         return $this;
     }
 
-    public function when(callable $callable): self
+    public function when(callable $callable): Scenario
     {
         if (null === $this->aggregateRoot) {
             $this->aggregateRoot = $callable();
 
             Assert::assertInstanceOf(EventSourcedAggregateRoot::class, $this->aggregateRoot);
-
-            return $this;
+        } else {
+            $callable($this->aggregateRoot);
         }
 
-        $callable($this->aggregateRoot);
-
-        return $this;
-    }
-
-    public function then($event): self
-    {
-        if (is_callable($event)) {
-            $event = $event($this->aggregateRoot);
-        }
-
-        Assert::assertContains($event, $this->getProducedEvents(), '', false, false);
-
-        return $this;
-    }
-
-    public function thenNot($event): self
-    {
-        if (is_callable($event)) {
-            $event = $event($this->aggregateRoot);
-        }
-
-        Assert::assertNotContains($event, $this->getProducedEvents(), '', false, false);
-
-        return $this;
-    }
-
-    public function thenOnly($events): self
-    {
-        if (is_callable($events)) {
-            $events = $events($this->aggregateRoot);
-        }
-
-        Assert::assertContainsOnly($events, $this->getProducedEvents());
-
-        return $this;
-    }
-
-    private function getProducedEvents(): iterable
-    {
-        $this->producedEvents = $this->producedEvents ?: array_map(
+        $this->producedEvents = array_map(
             function (DomainMessage $message) {
                 return $message->getPayload();
             },
             iterator_to_array($this->aggregateRoot->getUncommittedEvents())
         );
 
+        return $this;
+    }
+
+    /** {@inheritdoc} */
+    protected function getProducedEvents(): iterable
+    {
         return $this->producedEvents;
     }
 }

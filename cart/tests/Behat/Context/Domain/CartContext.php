@@ -107,8 +107,8 @@ final class CartContext implements Context
      */
     public function cartShouldBePickedUp(): void
     {
-        $this->broadway->then(function (Cart $cart) {
-            return new CartPickedUp($cart->getAggregateRootId());
+        $this->broadway->then(function (string $cartId) {
+            return new CartPickedUp($cartId);
         });
     }
 

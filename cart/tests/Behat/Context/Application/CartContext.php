@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\Pamil\Cart\Behat\Context\Application;
 
 use Behat\Behat\Context\Context;
+use Broadway\CommandHandling\CommandBus;
+use Broadway\CommandHandling\SimpleCommandBus;
 use Broadway\EventHandling\SimpleEventBus;
 use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
 use Broadway\EventSourcing\EventSourcingRepository;
@@ -25,12 +27,15 @@ use Pamil\Cart\Domain\Event\CartPickedUp;
 use Pamil\Cart\Domain\Model\Cart;
 use Pamil\Cart\Domain\Model\CartId;
 use Pamil\Cart\Infrastructure\Repository\BroadwayCartRepository;
-use Tests\Pamil\Cart\Behat\ApplicationScenario;
+use Tests\Pamil\Cart\Behat\InfrastructureScenario;
 
 final class CartContext implements Context
 {
-    /** @var ApplicationScenario  */
+    /** @var InfrastructureScenario  */
     private $broadway;
+
+    /** @var CommandBus */
+    private $commandBus;
 
     public function __construct()
     {
@@ -42,12 +47,13 @@ final class CartContext implements Context
             new ReflectionAggregateFactory()
         ));
 
-        $this->broadway = new ApplicationScenario($eventStore, [
-            new PickUpCartHandler($cartRepository),
-            new AddCartItemHandler($cartRepository),
-            new RemoveCartItemHandler($cartRepository),
-            new AdjustCartItemQuantityHandler($cartRepository),
-        ]);
+        $this->broadway = new InfrastructureScenario($eventStore);
+
+        $this->commandBus = new SimpleCommandBus();
+        $this->commandBus->subscribe(new PickUpCartHandler($cartRepository));
+        $this->commandBus->subscribe(new AddCartItemHandler($cartRepository));
+        $this->commandBus->subscribe(new RemoveCartItemHandler($cartRepository));
+        $this->commandBus->subscribe(new AdjustCartItemQuantityHandler($cartRepository));
     }
 
     /**
@@ -81,7 +87,7 @@ final class CartContext implements Context
         $this->broadway
             ->withAggregateId($cartId->toString())
             ->when(function (string $cartId) {
-                return new PickUpCart($cartId);
+                $this->commandBus->dispatch(new PickUpCart($cartId));
             })
         ;
     }
@@ -94,7 +100,7 @@ final class CartContext implements Context
         try {
             $this->broadway
                 ->when(function (string $cartId) {
-                    return new PickUpCart($cartId);
+                    $this->commandBus->dispatch(new PickUpCart($cartId));
                 })
             ;
         } catch (CartAlreadyPickedUpException $exception) {
@@ -108,7 +114,7 @@ final class CartContext implements Context
     public function addCartItem(int $number, string $cartItemId): void
     {
         $this->broadway->when(function (string $cartId) use ($number, $cartItemId) {
-            return new AddCartItem($cartId, $cartItemId, $number);
+            $this->commandBus->dispatch(new AddCartItem($cartId, $cartItemId, $number));
         });
     }
 
@@ -130,7 +136,7 @@ final class CartContext implements Context
     public function adjustCartItemQuantity(string $cartItemId, int $number): void
     {
         $this->broadway->when(function (string $cartId) use ($number, $cartItemId) {
-            return new AdjustCartItemQuantity($cartId, $cartItemId, $number);
+            $this->commandBus->dispatch(new AdjustCartItemQuantity($cartId, $cartItemId, $number));
         });
     }
 
@@ -140,7 +146,7 @@ final class CartContext implements Context
     public function removeCartItem(string $cartItemId): void
     {
         $this->broadway->when(function (string $cartId) use ($cartItemId) {
-            return new RemoveCartItem($cartId, $cartItemId);
+            $this->commandBus->dispatch(new RemoveCartItem($cartId, $cartItemId));
         });
     }
 
