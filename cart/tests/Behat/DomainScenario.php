@@ -102,11 +102,13 @@ final class DomainScenario
 
     private function getProducedEvents(): iterable
     {
-        return $this->producedEvents ?: array_map(
+        $this->producedEvents = $this->producedEvents ?: array_map(
             function (DomainMessage $message) {
                 return $message->getPayload();
             },
             iterator_to_array($this->aggregateRoot->getUncommittedEvents())
         );
+
+        return $this->producedEvents;
     }
 }
