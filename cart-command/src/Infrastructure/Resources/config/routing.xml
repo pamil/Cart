@@ -11,4 +11,8 @@
     <route id="pamil_cart_command_adjust_cart_item_quantity" path="/{cartId}/items" methods="PUT">
         <default key="_controller">pamil.cart_command.adjust_cart_item_quantity.action</default>
     </route>
+
+    <route id="pamil_cart_command_remove_cart_item" path="/{cartId}/items" methods="DELETE">
+        <default key="_controller">pamil.cart_command.remove_cart_item.action</default>
+    </route>
 </routes>
