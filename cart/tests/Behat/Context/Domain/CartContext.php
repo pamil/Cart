@@ -54,8 +54,8 @@ final class CartContext implements Context
 
         $this->broadway
             ->withAggregateId($cartId->toString())
-            ->when(function () use ($cartId) {
-                return Cart::pickUp($cartId);
+            ->when(function (string $cartId) {
+                return Cart::pickUp(CartId::fromString($cartId));
             })
         ;
     }

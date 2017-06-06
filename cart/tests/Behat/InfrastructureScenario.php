@@ -42,6 +42,7 @@ final class InfrastructureScenario extends AbstractScenario
         return $this;
     }
 
+    /** {@inheritdoc} */
     public function when(callable $action): Scenario
     {
         $playheadBeforeAction = $this->getCurrentPlayhead();

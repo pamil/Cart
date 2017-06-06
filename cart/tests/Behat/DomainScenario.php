@@ -55,7 +55,7 @@ final class DomainScenario extends AbstractScenario
     public function when(callable $callable): Scenario
     {
         if (null === $this->aggregateRoot) {
-            $this->aggregateRoot = $callable();
+            $this->aggregateRoot = $callable($this->aggregateId);
 
             Assert::assertInstanceOf(EventSourcedAggregateRoot::class, $this->aggregateRoot);
         } else {
