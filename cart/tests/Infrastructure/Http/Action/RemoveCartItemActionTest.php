@@ -54,6 +54,23 @@ final class RemoveCartItemActionTest extends WebTestCase
     }
 
     /** @test */
+    public function it_fails_while_trying_to_remove_unexisting_cart_item(): void
+    {
+        $client = static::createClient();
+
+        $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new PickUpCart('457e2ac8-8daf-47aa-a703-39b42d7f82ce'));
+
+        $client->request('DELETE', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
+            'cartItemId' => 'Fallout',
+        ]));
+
+        $response = $client->getResponse();
+
+        $this->assertSame(409, $response->getStatusCode());
+        $this->assertSame('{"error":"Cart item with ID \"Fallout\" was not found in cart with ID \"457e2ac8-8daf-47aa-a703-39b42d7f82ce\"!"}', $response->getContent());
+    }
+
+    /** @test */
     public function it_fails_while_passing_invalid_request_content(): void
     {
         $client = static::createClient();
