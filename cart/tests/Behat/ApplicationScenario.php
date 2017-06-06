@@ -10,13 +10,13 @@ use Broadway\CommandHandling\SimpleCommandBus;
 use Broadway\Domain\DomainEventStream;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
+use Broadway\EventStore\EventStore;
 use Broadway\EventStore\EventStreamNotFoundException;
-use Broadway\EventStore\TraceableEventStore;
 use PHPUnit\Framework\Assert;
 
 final class ApplicationScenario
 {
-    /** @var TraceableEventStore  */
+    /** @var EventStore  */
     private $eventStore;
 
     /** @var CommandBus */
@@ -28,7 +28,10 @@ final class ApplicationScenario
     /** @var array */
     private $producedEvents = [];
 
-    public function __construct(TraceableEventStore $eventStore, iterable $commandHandlers)
+    /** @var int */
+    private $lastKnownPlayhead = -1;
+
+    public function __construct(EventStore $eventStore, iterable $commandHandlers)
     {
         $this->eventStore = $eventStore;
         $this->commandBus = new SimpleCommandBus();
@@ -52,19 +55,8 @@ final class ApplicationScenario
         }
 
         foreach ($events as $event) {
-            try {
-                $playhead = max(array_map(
-                    function (DomainMessage $message) {
-                        return $message->getPlayhead();
-                    },
-                    iterator_to_array($this->eventStore->load($this->aggregateId))
-                ));
-            } catch (EventStreamNotFoundException $exception) {
-                $playhead = -1;
-            }
-
             $this->eventStore->append($this->aggregateId, new DomainEventStream([
-                DomainMessage::recordNow($this->aggregateId, $playhead + 1, new Metadata([]), $event)
+                DomainMessage::recordNow($this->aggregateId, $this->getLastPlayhead() + 1, new Metadata(), $event)
             ]));
         }
 
@@ -77,7 +69,7 @@ final class ApplicationScenario
             $command = $command($this->aggregateId);
         }
 
-        $this->eventStore->trace();
+        $this->lastKnownPlayhead = $this->getLastPlayhead();
 
         $this->commandBus->dispatch($command);
 
@@ -119,10 +111,29 @@ final class ApplicationScenario
 
     private function getProducedEvents(): iterable
     {
-        $this->producedEvents = $this->producedEvents ?: $this->eventStore->getEvents();
+        $this->producedEvents = $this->producedEvents ?: array_map(
+            function (DomainMessage $message) {
+                return $message->getPayload();
+            },
+            iterator_to_array($this->eventStore->loadFromPlayhead($this->aggregateId, $this->lastKnownPlayhead + 1))
+        );
 
-        $this->eventStore->clearEvents();
+        $this->lastKnownPlayhead = $this->getLastPlayhead();
 
         return $this->producedEvents;
+    }
+
+    private function getLastPlayhead(): int
+    {
+        try {
+            return max(array_map(
+                function (DomainMessage $message) {
+                    return $message->getPlayhead();
+                },
+                iterator_to_array($this->eventStore->load($this->aggregateId))
+            ));
+        } catch (EventStreamNotFoundException $exception) {
+            return -1;
+        }
     }
 }

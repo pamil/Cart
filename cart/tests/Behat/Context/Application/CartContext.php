@@ -35,7 +35,7 @@ final class CartContext implements Context
 
     public function __construct()
     {
-        $eventStore = new TraceableEventStore(new InMemoryEventStore());
+        $eventStore = new InMemoryEventStore();
         $cartRepository = new BroadwayCartRepository(new EventSourcingRepository(
             $eventStore,
             new SimpleEventBus(),
