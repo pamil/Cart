@@ -33,10 +33,10 @@ final class DomainScenario extends AbstractScenario
     }
 
     /** {@inheritdoc} */
-    public function given($events): Scenario
+    public function given($event): Scenario
     {
-        if (!is_iterable($events)) {
-            $events = [$events];
+        if (is_callable($event)) {
+            $event = $event($this->aggregateId);
         }
 
         if (null === $this->aggregateRoot) {
@@ -45,11 +45,9 @@ final class DomainScenario extends AbstractScenario
             Assert::assertInstanceOf(EventSourcedAggregateRoot::class, $this->aggregateRoot);
         }
 
-        foreach ($events as $event) {
-            $this->aggregateRoot->initializeState(new DomainEventStream([
-                DomainMessage::recordNow($this->aggregateId, $this->aggregateRoot->getPlayhead() + 1, new Metadata(), $event)
-            ]));
-        }
+        $this->aggregateRoot->initializeState(new DomainEventStream([
+            DomainMessage::recordNow($this->aggregateId, $this->aggregateRoot->getPlayhead() + 1, new Metadata(), $event)
+        ]));
 
         return $this;
     }

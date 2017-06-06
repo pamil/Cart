@@ -29,17 +29,15 @@ final class InfrastructureScenario extends AbstractScenario
     }
 
     /** {@inheritdoc} */
-    public function given($events): Scenario
+    public function given($event): Scenario
     {
-        if (!is_iterable($events)) {
-            $events = [$events];
+        if (is_callable($event)) {
+            $event = $event($this->aggregateId);
         }
 
-        foreach ($events as $event) {
-            $this->eventStore->append($this->aggregateId, new DomainEventStream([
-                DomainMessage::recordNow($this->aggregateId, $this->getCurrentPlayhead() + 1, new Metadata([]), $event)
-            ]));
-        }
+        $this->eventStore->append($this->aggregateId, new DomainEventStream([
+            DomainMessage::recordNow($this->aggregateId, $this->getCurrentPlayhead() + 1, new Metadata([]), $event)
+        ]));
 
         return $this;
     }

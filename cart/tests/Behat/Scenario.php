@@ -21,11 +21,12 @@ interface Scenario
     /**
      * Can be run more than once.
      *
-     * @param iterable|mixed $events One or more events happened in the past.
+     * @param callable|mixed $event Event that has happened in the past.
+     *                              Or a callable receiving aggregate root id and returning that event.
      *
      * @return self
      */
-    public function given($events): self;
+    public function given($event): self;
 
     /**
      * Can be run ONLY once.
