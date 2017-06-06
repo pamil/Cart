@@ -10,6 +10,15 @@
             <tag name="broadway.command_handler" />
         </service>
 
+        <service id="pamil.cart_command.add_cart_item.action" class="Pamil\CartCommand\Application\Action\AddCartItemAction">
+            <argument type="service" id="broadway.command_handling.command_bus" />
+        </service>
+
+        <service id="pamil.cart_command.add_cart_item.handler" class="Pamil\CartCommand\Application\CommandHandler\AddCartItemHandler">
+            <argument type="service" id="pamil.cart_command.cart_repository" />
+            <tag name="broadway.command_handler" />
+        </service>
+
         <service id="pamil.cart_command.cart_repository" class="Pamil\CartCommand\Infrastructure\Repository\BroadwayCartRepository">
             <argument type="service">
                 <service class="Broadway\EventSourcing\EventSourcingRepository">

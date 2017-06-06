@@ -3,4 +3,8 @@
     <route id="pamil_cart_command_pick_up" path="/{cartId}" methods="POST">
         <default key="_controller">pamil.cart_command.pick_up_cart.action</default>
     </route>
+
+    <route id="pamil_cart_command_add_cart_item" path="/{cartId}/items" methods="POST">
+        <default key="_controller">pamil.cart_command.add_cart_item.action</default>
+    </route>
 </routes>
