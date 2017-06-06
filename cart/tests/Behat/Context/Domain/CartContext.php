@@ -25,9 +25,30 @@ final class CartContext implements Context
     }
 
     /**
+     * @Given the cart was picked up
+     */
+    public function cartPickedUp(): void
+    {
+        $cartId = CartId::generate();
+
+        $this->broadway
+            ->withAggregateId($cartId->toString())
+            ->given(new CartPickedUp($cartId->toString()))
+        ;
+    }
+
+    /**
+     * @Given :number :cartItemId cart items were added to the cart
+     */
+    public function cartItemAdded(int $number, string $cartItemId): void
+    {
+        $this->broadway->given(new CartItemAdded($cartItemId, $number));
+    }
+
+    /**
      * @When I pick up a cart
      */
-    public function iPickUpCart(): void
+    public function pickUpCart(): void
     {
         $cartId = CartId::generate();
 
@@ -40,32 +61,9 @@ final class CartContext implements Context
     }
 
     /**
-     * @Then the cart should be picked up
-     */
-    public function theCartShouldBePickedUp(): void
-    {
-        $this->broadway->then(function (Cart $cart) {
-            return new CartPickedUp($cart->getAggregateRootId());
-        });
-    }
-
-    /**
-     * @Given the cart was picked up
-     */
-    public function theCartWasPickedUp(): void
-    {
-        $cartId = CartId::generate();
-
-        $this->broadway
-            ->withAggregateId($cartId->toString())
-            ->given(new CartPickedUp($cartId->toString()))
-        ;
-    }
-
-    /**
      * @When I add :number :cartItemId cart items to that cart
      */
-    public function iAddCartItemsToThatCart(int $number, string $cartItemId): void
+    public function addCartItem(int $number, string $cartItemId): void
     {
         $this->broadway->when(function (Cart $cart) use ($number, $cartItemId) {
             $cart->addItem($cartItemId, new Quantity($number));
@@ -73,65 +71,13 @@ final class CartContext implements Context
     }
 
     /**
-     * @Then :number :cartItemId cart items should be added to the cart
-     */
-    public function cartItemsShouldBeAddedToTheCart(int $number, string $cartItemId): void
-    {
-        $this->broadway->then(new CartItemAdded($cartItemId, $number));
-    }
-
-    /**
-     * @Given :number :cartItemId cart items were added to the cart
-     */
-    public function cartItemsWereAddedToTheCart(int $number, string $cartItemId): void
-    {
-        $this->broadway->given(new CartItemAdded($cartItemId, $number));
-    }
-
-    /**
-     * @When I remove :cartItemId cart item from the cart
-     */
-    public function iRemoveCartItemFromTheCart(string $cartItemId): void
-    {
-        $this->broadway->when(function (Cart $cart) use ($cartItemId) {
-            $cart->removeItem($cartItemId);
-        });
-    }
-
-    /**
-     * @Then the :cartItemId cart item should be removed from the cart
-     */
-    public function theCartItemShouldBeRemovedFromTheCart(string $cartItemId): void
-    {
-        $this->broadway->then(new CartItemRemoved($cartItemId));
-    }
-
-    /**
-     * @When I adjust :cartItemId cart item quantity to :number
-     */
-    public function iAdjustCartItemQuantity(string $cartItemId, int $number): void
-    {
-        $this->broadway->when(function (Cart $cart) use ($cartItemId, $number) {
-            $cart->adjustItemQuantity($cartItemId, new Quantity($number));
-        });
-    }
-
-    /**
-     * @Then the :cartItemId cart item quantity should be adjusted to :number
-     */
-    public function theCartItemQuantityShouldBeAdjusted(string $cartItemId, int $number): void
-    {
-        $this->broadway->then(new CartItemQuantityAdjusted($cartItemId, $number));
-    }
-
-    /**
      * @When I try to add :number :cartItemId cart items to that cart
      */
-    public function iTryToAddCartItemsToThatCart(int $number, string $cartItemId): void
+    public function tryToAddCartItem(int $number, string $cartItemId): void
     {
         try {
             $this->broadway->when(function (Cart $cart) use ($number, $cartItemId) {
-                $cart->addItem($cartItemId, new Quantity($number));
+                $this->addCartItem($number, $cartItemId);
             });
         } catch (\Throwable $throwable) {
             return;
@@ -139,10 +85,64 @@ final class CartContext implements Context
     }
 
     /**
+     * @When I adjust :cartItemId cart item quantity to :number
+     */
+    public function adjustCartItemQuantity(string $cartItemId, int $number): void
+    {
+        $this->broadway->when(function (Cart $cart) use ($cartItemId, $number) {
+            $cart->adjustItemQuantity($cartItemId, new Quantity($number));
+        });
+    }
+
+    /**
+     * @When I remove :cartItemId cart item from the cart
+     */
+    public function removeCartItem(string $cartItemId): void
+    {
+        $this->broadway->when(function (Cart $cart) use ($cartItemId) {
+            $cart->removeItem($cartItemId);
+        });
+    }
+
+    /**
+     * @Then the cart should be picked up
+     */
+    public function cartShouldBePickedUp(): void
+    {
+        $this->broadway->then(function (Cart $cart) {
+            return new CartPickedUp($cart->getAggregateRootId());
+        });
+    }
+
+    /**
+     * @Then :number :cartItemId cart items should be added to the cart
+     */
+    public function cartItemShouldBeAdded(int $number, string $cartItemId): void
+    {
+        $this->broadway->then(new CartItemAdded($cartItemId, $number));
+    }
+
+    /**
      * @Then :number :cartItemId cart items should not be added to the cart
      */
-    public function cartItemsShouldNotBeAddedToTheCart(int $number, string $cartItemId): void
+    public function cartItemShouldNotBeAdded(int $number, string $cartItemId): void
     {
         $this->broadway->thenNot(new CartItemAdded($cartItemId, $number));
+    }
+
+    /**
+     * @Then the :cartItemId cart item quantity should be adjusted to :number
+     */
+    public function cartItemQuantityShouldBeAdjusted(string $cartItemId, int $number): void
+    {
+        $this->broadway->then(new CartItemQuantityAdjusted($cartItemId, $number));
+    }
+
+    /**
+     * @Then the :cartItemId cart item should be removed from the cart
+     */
+    public function cartItemShouldBeRemoved(string $cartItemId): void
+    {
+        $this->broadway->then(new CartItemRemoved($cartItemId));
     }
 }
