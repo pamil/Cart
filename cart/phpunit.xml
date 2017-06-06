@@ -1,0 +1,13 @@
+<phpunit >
+    <php>
+        <server name="KERNEL_CLASS" value="Pamil\Cart\Infrastructure\PamilCartKernel" />
+    </php>
+    <testsuite name="Pamil\Cart">
+        <directory suffix="Test.php">tests/</directory>
+    </testsuite>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+    </filter>
+</phpunit>
