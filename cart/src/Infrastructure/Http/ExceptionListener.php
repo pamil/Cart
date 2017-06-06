@@ -6,6 +6,7 @@ namespace Pamil\Cart\Infrastructure\Http;
 
 use Pamil\Cart\Application\Exception\CartAlreadyPickedUpException;
 use Pamil\Cart\Application\Exception\CartNotFoundException;
+use Pamil\Cart\Domain\Exception\CartItemNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -18,6 +19,7 @@ final class ExceptionListener
         CartAlreadyPickedUpException::class => Response::HTTP_CONFLICT,
         CartNotFoundException::class => Response::HTTP_NOT_FOUND,
         ExceptionInterface::class => Response::HTTP_BAD_REQUEST,
+        CartItemNotFoundException::class => Response::HTTP_CONFLICT,
     ];
 
     public function __invoke(GetResponseForExceptionEvent $event): void

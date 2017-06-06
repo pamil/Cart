@@ -69,7 +69,7 @@ final class AdjustCartItemQuantityActionTest extends WebTestCase
 
         $response = $client->getResponse();
 
-        $this->assertSame(404, $response->getStatusCode());
+        $this->assertSame(409, $response->getStatusCode());
         $this->assertSame('{"error":"Cart item with ID \"Fallout\" was not found in cart with ID \"457e2ac8-8daf-47aa-a703-39b42d7f82ce\"!"}', $response->getContent());
     }
 
