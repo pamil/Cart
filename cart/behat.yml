@@ -30,6 +30,7 @@ default:
         api:
             contexts_services:
                 - pamil.context.api.cart
+                - pamil.context.hook.event_store
                 - pamil.context.transform.number
 
             filters:
