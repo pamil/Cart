@@ -123,4 +123,26 @@ final class CartContext implements Context
     {
         $this->broadway->then(new CartItemQuantityAdjusted($cartItemId, $number));
     }
+
+    /**
+     * @When I try to add :number :cartItemId cart items to that cart
+     */
+    public function iTryToAddCartItemsToThatCart(int $number, string $cartItemId): void
+    {
+        try {
+            $this->broadway->when(function (Cart $cart) use ($number, $cartItemId) {
+                $cart->addItem($cartItemId, new Quantity($number));
+            });
+        } catch (\Throwable $throwable) {
+            return;
+        }
+    }
+
+    /**
+     * @Then :number :cartItemId cart items should not be added to the cart
+     */
+    public function cartItemsShouldNotBeAddedToTheCart(int $number, string $cartItemId): void
+    {
+        $this->broadway->thenNot(new CartItemAdded($cartItemId, $number));
+    }
 }
