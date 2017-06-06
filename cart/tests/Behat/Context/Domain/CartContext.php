@@ -76,9 +76,7 @@ final class CartContext implements Context
     public function tryToAddCartItem(int $number, string $cartItemId): void
     {
         try {
-            $this->broadway->when(function (Cart $cart) use ($number, $cartItemId) {
-                $this->addCartItem($number, $cartItemId);
-            });
+            $this->addCartItem($number, $cartItemId);
         } catch (\Throwable $throwable) {
             return;
         }

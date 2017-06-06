@@ -9,7 +9,6 @@ use Broadway\EventHandling\SimpleEventBus;
 use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
 use Broadway\EventSourcing\EventSourcingRepository;
 use Broadway\EventStore\InMemoryEventStore;
-use Broadway\EventStore\TraceableEventStore;
 use Pamil\Cart\Application\Command\AddCartItem;
 use Pamil\Cart\Application\Command\AdjustCartItemQuantity;
 use Pamil\Cart\Application\Command\PickUpCart;
@@ -90,7 +89,7 @@ final class CartContext implements Context
     /**
      * @When I try to pick that cart up again
      */
-    public function tryToPickUpCart()
+    public function tryToPickUpCart(): void
     {
         try {
             $this->broadway
@@ -158,7 +157,7 @@ final class CartContext implements Context
     /**
      * @Then the cart should not be picked up
      */
-    public function theCartShouldNotBePickedUp()
+    public function theCartShouldNotBePickedUp(): void
     {
         $this->broadway->thenNot(function (string $cartId) {
             return new CartPickedUp($cartId);
