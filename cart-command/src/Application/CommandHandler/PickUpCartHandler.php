@@ -35,6 +35,10 @@ final class PickUpCartHandler implements CommandHandler
 
     public function handle($command): void
     {
+        if (!$command instanceof PickUpCart) {
+            return;
+        }
+
         $this($command);
     }
 }

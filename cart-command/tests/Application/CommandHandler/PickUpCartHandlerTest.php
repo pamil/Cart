@@ -61,4 +61,12 @@ final class PickUpCartHandlerTest extends CommandHandlerScenarioTestCase
             ->when(new PickUpCart($cartId->toString()))
         ;
     }
+
+    /** @test */
+    public function it_does_not_fail_if_trying_to_handle_unsupported_command(): void
+    {
+        $this->scenario
+            ->when(new \stdClass())
+        ;
+    }
 }
