@@ -7,4 +7,8 @@
     <route id="pamil_cart_command_add_cart_item" path="/{cartId}/items" methods="POST">
         <default key="_controller">pamil.cart_command.add_cart_item.action</default>
     </route>
+
+    <route id="pamil_cart_command_adjust_cart_item_quantity" path="/{cartId}/items" methods="PUT">
+        <default key="_controller">pamil.cart_command.adjust_cart_item_quantity.action</default>
+    </route>
 </routes>

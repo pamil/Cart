@@ -19,6 +19,15 @@
             <tag name="broadway.command_handler" />
         </service>
 
+        <service id="pamil.cart_command.adjust_cart_item_quantity.action" class="Pamil\CartCommand\Application\Action\AdjustCartItemQuantityAction">
+            <argument type="service" id="broadway.command_handling.command_bus" />
+        </service>
+
+        <service id="pamil.cart_command.adjust_cart_item_quantity.handler" class="Pamil\CartCommand\Application\CommandHandler\AdjustCartItemQuantityHandler">
+            <argument type="service" id="pamil.cart_command.cart_repository" />
+            <tag name="broadway.command_handler" />
+        </service>
+
         <service id="pamil.cart_command.cart_repository" class="Pamil\CartCommand\Infrastructure\Repository\BroadwayCartRepository">
             <argument type="service">
                 <service class="Broadway\EventSourcing\EventSourcingRepository">
