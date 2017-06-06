@@ -40,7 +40,7 @@ final class AdjustCartItemQuantityActionTest extends WebTestCase
     }
 
     /** @test */
-    public function it_fails_while_trying_to_add_cart_item_to_unexisting_cart(): void
+    public function it_fails_while_trying_to_adjust_cart_item_quantity_in_an_unexisting_cart(): void
     {
         $client = static::createClient();
 
@@ -53,6 +53,24 @@ final class AdjustCartItemQuantityActionTest extends WebTestCase
 
         $this->assertSame(404, $response->getStatusCode());
         $this->assertSame('{"error":"Cart with ID \"457e2ac8-8daf-47aa-a703-39b42d7f82ce\" could not be found!"}', $response->getContent());
+    }
+
+    /** @test */
+    public function it_fails_while_trying_to_adjust_cart_item_quantity_of_unexisting_cart_item(): void
+    {
+        $client = static::createClient();
+
+        $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new PickUpCart('457e2ac8-8daf-47aa-a703-39b42d7f82ce'));
+
+        $client->request('PUT', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
+            'cartItemId' => 'Fallout',
+            'quantity' => 5,
+        ]));
+
+        $response = $client->getResponse();
+
+        $this->assertSame(404, $response->getStatusCode());
+        $this->assertSame('{"error":"Cart item with ID \"Fallout\" was not found in cart with ID \"457e2ac8-8daf-47aa-a703-39b42d7f82ce\"!"}', $response->getContent());
     }
 
     /** @test */
