@@ -8,6 +8,12 @@ Feature: Managing the cart
         When I pick up a cart
         Then the cart should be picked up
 
+    @application
+    Scenario: Trying to pick up the same cart twice
+        Given the cart was picked up
+        When I try to pick that cart up again
+        Then the cart should not be picked up
+
     @domain @application
     Scenario: Adding cart item to the cart
         Given the cart was picked up

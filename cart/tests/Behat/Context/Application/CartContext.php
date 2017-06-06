@@ -18,6 +18,7 @@ use Pamil\Cart\Application\CommandHandler\AddCartItemHandler;
 use Pamil\Cart\Application\CommandHandler\AdjustCartItemQuantityHandler;
 use Pamil\Cart\Application\CommandHandler\PickUpCartHandler;
 use Pamil\Cart\Application\CommandHandler\RemoveCartItemHandler;
+use Pamil\Cart\Application\Exception\CartAlreadyPickedUpException;
 use Pamil\Cart\Domain\Event\CartItemAdded;
 use Pamil\Cart\Domain\Event\CartItemQuantityAdjusted;
 use Pamil\Cart\Domain\Event\CartItemRemoved;
@@ -87,6 +88,22 @@ final class CartContext implements Context
     }
 
     /**
+     * @When I try to pick that cart up again
+     */
+    public function tryToPickUpCart()
+    {
+        try {
+            $this->broadway
+                ->when(function (string $cartId) {
+                    return new PickUpCart($cartId);
+                })
+            ;
+        } catch (CartAlreadyPickedUpException $exception) {
+            return;
+        }
+    }
+
+    /**
      * @When I add :number :cartItemId cart items to that cart
      */
     public function addCartItem(int $number, string $cartItemId): void
@@ -134,6 +151,16 @@ final class CartContext implements Context
     public function cartShouldBePickedUp(): void
     {
         $this->broadway->then(function (string $cartId) {
+            return new CartPickedUp($cartId);
+        });
+    }
+
+    /**
+     * @Then the cart should not be picked up
+     */
+    public function theCartShouldNotBePickedUp()
+    {
+        $this->broadway->thenNot(function (string $cartId) {
             return new CartPickedUp($cartId);
         });
     }
