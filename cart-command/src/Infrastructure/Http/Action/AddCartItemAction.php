@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Pamil\CartCommand\Application\Action;
+namespace Pamil\CartCommand\Infrastructure\Http\Action;
 
 use Broadway\CommandHandling\CommandBus;
 use Pamil\CartCommand\Application\Command\AddCartItem;
-use Pamil\CartCommand\Application\Command\AdjustCartItemQuantity;
 use Pamil\CartCommand\Application\Exception\CartNotFoundException;
-use Pamil\CartCommand\Domain\Exception\CartItemNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class AdjustCartItemQuantityAction
+final class AddCartItemAction
 {
     /** @var CommandBus */
     private $commandBus;
@@ -32,7 +30,7 @@ final class AdjustCartItemQuantityAction
         }
 
         try {
-            $this->commandBus->dispatch(new AdjustCartItemQuantity($cartId, $content['cartItemId'], $content['quantity']));
+            $this->commandBus->dispatch(new AddCartItem($cartId, $content['cartItemId'], $content['quantity']));
 
             return new JsonResponse(null, 204);
         } catch (CartNotFoundException $exception) {

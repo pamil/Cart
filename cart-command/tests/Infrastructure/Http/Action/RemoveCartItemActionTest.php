@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\CartCommand\Application\Action;
+namespace Tests\Pamil\CartCommand\Infrastructure\Http\Action;
 
 use Pamil\CartCommand\Application\Command\AddCartItem;
 use Pamil\CartCommand\Application\Command\PickUpCart;
@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 
-final class AdjustCartItemQuantityActionTest extends WebTestCase
+final class RemoveCartItemActionTest extends WebTestCase
 {
     /** {@inheritdoc} */
     protected function setUp(): void
@@ -21,16 +21,15 @@ final class AdjustCartItemQuantityActionTest extends WebTestCase
     }
 
     /** @test */
-    public function it_adjust_cart_item_quantity(): void
+    public function it_removes_previously_added_cart_item(): void
     {
         $client = static::createClient();
 
         $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new PickUpCart('457e2ac8-8daf-47aa-a703-39b42d7f82ce'));
         $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new AddCartItem('457e2ac8-8daf-47aa-a703-39b42d7f82ce', 'Fallout', 3));
 
-        $client->request('PUT', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
+        $client->request('DELETE', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
             'cartItemId' => 'Fallout',
-            'quantity' => 5,
         ]));
 
         $response = $client->getResponse();
@@ -40,13 +39,12 @@ final class AdjustCartItemQuantityActionTest extends WebTestCase
     }
 
     /** @test */
-    public function it_fails_while_trying_to_add_cart_item_to_unexisting_cart(): void
+    public function it_fails_while_trying_to_remove_cart_item_from_unexisting_cart(): void
     {
         $client = static::createClient();
 
-        $client->request('PUT', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
+        $client->request('DELETE', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
             'cartItemId' => 'Fallout',
-            'quantity' => 5,
         ]));
 
         $response = $client->getResponse();
@@ -60,7 +58,7 @@ final class AdjustCartItemQuantityActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('PUT', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([]));
+        $client->request('DELETE', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([]));
 
         $response = $client->getResponse();
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pamil\CartCommand\Application\Action;
+namespace Pamil\CartCommand\Infrastructure\Http\Action;
 
 use Broadway\CommandHandling\CommandBus;
 use Pamil\CartCommand\Application\Command\RemoveCartItem;

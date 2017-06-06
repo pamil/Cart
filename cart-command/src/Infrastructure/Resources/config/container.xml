@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="pamil.cart_command.pick_up_cart.action" class="Pamil\CartCommand\Application\Action\PickUpCartAction">
+        <service id="pamil.cart_command.pick_up_cart.action" class="Pamil\CartCommand\Infrastructure\Http\Action\PickUpCartAction">
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
@@ -10,7 +10,7 @@
             <tag name="broadway.command_handler" />
         </service>
 
-        <service id="pamil.cart_command.add_cart_item.action" class="Pamil\CartCommand\Application\Action\AddCartItemAction">
+        <service id="pamil.cart_command.add_cart_item.action" class="Pamil\CartCommand\Infrastructure\Http\Action\AddCartItemAction">
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
@@ -19,7 +19,7 @@
             <tag name="broadway.command_handler" />
         </service>
 
-        <service id="pamil.cart_command.adjust_cart_item_quantity.action" class="Pamil\CartCommand\Application\Action\AdjustCartItemQuantityAction">
+        <service id="pamil.cart_command.adjust_cart_item_quantity.action" class="Pamil\CartCommand\Infrastructure\Http\Action\AdjustCartItemQuantityAction">
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
@@ -28,7 +28,7 @@
             <tag name="broadway.command_handler" />
         </service>
 
-        <service id="pamil.cart_command.remove_cart_item.action" class="Pamil\CartCommand\Application\Action\RemoveCartItemAction">
+        <service id="pamil.cart_command.remove_cart_item.action" class="Pamil\CartCommand\Infrastructure\Http\Action\RemoveCartItemAction">
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
