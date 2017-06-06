@@ -42,9 +42,9 @@ final class CartCommandKernel extends Kernel
     /** {@inheritdoc} */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
-        $loader->load(self::CONFIG_DIR . '/packages/*.yaml', 'glob');
+        $loader->load(self::CONFIG_DIR . '/packages/*.{php,xml,yaml,yml}', 'glob');
         if (is_dir(self::CONFIG_DIR . '/packages/' . $this->environment)) {
-            $loader->load(self::CONFIG_DIR . '/packages/'.$this->environment.'/**/*.yaml', 'glob');
+            $loader->load(self::CONFIG_DIR . '/packages/'.$this->environment.'/**/*.{php,xml,yaml,yml}', 'glob');
         }
 
         $loader->load(self::CONFIG_DIR . '/container.xml');
