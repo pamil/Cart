@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+        <service id="pamil.scenario_storage" class="Tests\Pamil\Cart\Behat\ScenarioStorage" />
+
         <service id="pamil.context.transform.number" class="Tests\Pamil\Cart\Behat\Context\Transform\NumberContext">
             <tag name="fob.context_service" />
         </service>
@@ -10,15 +12,23 @@
             <tag name="fob.context_service" />
         </service>
 
+        <service id="pamil.context.common.cart" class="Tests\Pamil\Cart\Behat\Context\Common\CartContext">
+            <argument type="service" id="pamil.scenario_storage" />
+            <tag name="fob.context_service" />
+        </service>
+
         <service id="pamil.context.domain.cart" class="Tests\Pamil\Cart\Behat\Context\Domain\CartContext">
+            <argument type="service" id="pamil.scenario_storage" />
             <tag name="fob.context_service" />
         </service>
 
         <service id="pamil.context.application.cart" class="Tests\Pamil\Cart\Behat\Context\Application\CartContext">
+            <argument type="service" id="pamil.scenario_storage" />
             <tag name="fob.context_service" />
         </service>
 
         <service id="pamil.context.api.cart" class="Tests\Pamil\Cart\Behat\Context\Api\CartContext">
+            <argument type="service" id="pamil.scenario_storage" />
             <argument type="service" id="__symfony__.broadway.event_store" />
             <argument type="service" id="__symfony__.test.client" />
             <tag name="fob.context_service" />

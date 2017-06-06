@@ -13,6 +13,7 @@ default:
     suites:
         domain:
             contexts_services:
+                - pamil.context.common.cart
                 - pamil.context.domain.cart
                 - pamil.context.transform.number
 
@@ -22,6 +23,7 @@ default:
         application:
             contexts_services:
                 - pamil.context.application.cart
+                - pamil.context.common.cart
                 - pamil.context.transform.number
 
             filters:
@@ -30,6 +32,7 @@ default:
         api:
             contexts_services:
                 - pamil.context.api.cart
+                - pamil.context.common.cart
                 - pamil.context.hook.event_store
                 - pamil.context.transform.number
 
