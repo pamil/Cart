@@ -1,0 +1,13 @@
+default:
+    extensions:
+        FriendsOfBehat\ContextServiceExtension:
+            imports:
+                - "tests/Behat/Resources/config/container.xml"
+
+    suites:
+        domain:
+            contexts_services:
+                - pamil.context.domain.cart
+                - pamil.context.transform.number
+
+            tags: "@domain"
