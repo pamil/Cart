@@ -37,6 +37,10 @@
             <tag name="broadway.command_handler" />
         </service>
 
+        <service class="Pamil\CartCommand\Infrastructure\Http\ExceptionListener">
+            <tag name="kernel.event_listener" event="kernel.exception" method="__invoke" />
+        </service>
+
         <service id="pamil.cart_command.cart_repository" class="Pamil\CartCommand\Infrastructure\Repository\BroadwayCartRepository">
             <argument type="service">
                 <service class="Broadway\EventSourcing\EventSourcingRepository">

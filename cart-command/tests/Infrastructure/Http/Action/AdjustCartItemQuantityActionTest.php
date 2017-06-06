@@ -52,7 +52,7 @@ final class AdjustCartItemQuantityActionTest extends WebTestCase
         $response = $client->getResponse();
 
         $this->assertSame(404, $response->getStatusCode());
-        $this->assertSame('{"error":"Cart has not been picked up before"}', $response->getContent());
+        $this->assertSame('{"error":"Cart with ID 457e2ac8-8daf-47aa-a703-39b42d7f82ce could not be found!"}', $response->getContent());
     }
 
     /** @test */

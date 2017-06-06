@@ -6,7 +6,6 @@ namespace Pamil\CartCommand\Infrastructure\Http\Action;
 
 use Broadway\CommandHandling\CommandBus;
 use Pamil\CartCommand\Application\Command\AddCartItem;
-use Pamil\CartCommand\Application\Exception\CartNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,12 +28,8 @@ final class AddCartItemAction
             return new JsonResponse(['error' => 'Invalid request content'], 400);
         }
 
-        try {
-            $this->commandBus->dispatch(new AddCartItem($cartId, $content['cartItemId'], $content['quantity']));
+        $this->commandBus->dispatch(new AddCartItem($cartId, $content['cartItemId'], $content['quantity']));
 
-            return new JsonResponse(null, 204);
-        } catch (CartNotFoundException $exception) {
-            return new JsonResponse(['error' => 'Cart has not been picked up before'], 404);
-        }
+        return new JsonResponse(null, 204);
     }
 }

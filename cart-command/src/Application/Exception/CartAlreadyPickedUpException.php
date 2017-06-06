@@ -9,7 +9,7 @@ final class CartAlreadyPickedUpException extends \DomainException
     public static function create(string $cartId, \Exception $previousException = null): self
     {
         return new self(
-            sprintf('Cart with ID "%s" has been already picked up!', $cartId),
+            sprintf('Cart with ID %s has been already picked up!', $cartId),
             0,
             $previousException
         );
