@@ -41,3 +41,12 @@ Feature: Managing the cart
         And two "Fallout" cart items were added to the cart
         When I add three "Fallout" cart items to that cart
         Then the "Fallout" cart item quantity should be adjusted to five
+
+    @domain
+    Scenario: Trying to add more than three different products to the cart
+        Given the cart was picked up
+        And three "Fallout" cart items were added to the cart
+        And five "Baldur's Gate" cart items were added to the cart
+        And seven "Bloodborne" cart items were added to the cart
+        When I try to add two "Icewind Dale" cart items to that cart
+        Then two "Icewind Dale" cart items should not be added to the cart
