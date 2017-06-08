@@ -6,10 +6,10 @@ namespace Tests\Pamil\Cart\Behat;
 
 final class ScenarioStorage
 {
-    /** @var Scenario[] */
+    /** @var array */
     private $scenarios = [];
 
-    public function define(string $identifier, Scenario $scenario): void
+    public function define(string $identifier, $scenario): void
     {
         if (array_key_exists($identifier, $this->scenarios)) {
             throw new \DomainException(sprintf('Scenario with name "%s" was already defined!', $identifier));
@@ -18,7 +18,7 @@ final class ScenarioStorage
         $this->scenarios[$identifier] = $scenario;
     }
 
-    public function get(string $identifier): Scenario
+    public function get(string $identifier)
     {
         if (!array_key_exists($identifier, $this->scenarios)) {
             throw new \DomainException(sprintf('Scenario with name "%s" could not be found!', $identifier));

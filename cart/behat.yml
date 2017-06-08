@@ -11,25 +11,25 @@ default:
                 - "tests/Behat/Resources/config/container.xml"
 
     suites:
-        domain:
+        write_domain:
             contexts_services:
                 - pamil.context.common.cart
                 - pamil.context.domain.cart
                 - pamil.context.transform.number
 
             filters:
-                tags: "@domain"
+                tags: "@write && @domain"
 
-        application:
+        write_application:
             contexts_services:
                 - pamil.context.application.cart
                 - pamil.context.common.cart
                 - pamil.context.transform.number
 
             filters:
-                tags: "@application"
+                tags: "@write && @application"
 
-        api:
+        write_api:
             contexts_services:
                 - pamil.context.api.cart
                 - pamil.context.common.cart
@@ -37,4 +37,12 @@ default:
                 - pamil.context.transform.number
 
             filters:
-                tags: "@api"
+                tags: "@write && @api"
+
+        read_application:
+            contexts_services:
+                - pamil.context.query.cart
+                - pamil.context.transform.number
+
+            filters:
+                tags: "@read && @application"

@@ -1,57 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-    <services>
-        <service id="pamil.cart.pick_up_cart.action" class="Pamil\Cart\Infrastructure\Http\Action\PickUpCartAction">
-            <argument type="service" id="broadway.command_handling.command_bus" />
-        </service>
-
-        <service id="pamil.cart.pick_up_cart.handler" class="Pamil\Cart\Application\CommandHandler\PickUpCartHandler">
-            <argument type="service" id="pamil.cart.cart_repository" />
-            <tag name="broadway.command_handler" />
-        </service>
-
-        <service id="pamil.cart.add_cart_item.action" class="Pamil\Cart\Infrastructure\Http\Action\AddCartItemAction">
-            <argument type="service" id="broadway.command_handling.command_bus" />
-        </service>
-
-        <service id="pamil.cart.add_cart_item.handler" class="Pamil\Cart\Application\CommandHandler\AddCartItemHandler">
-            <argument type="service" id="pamil.cart.cart_repository" />
-            <tag name="broadway.command_handler" />
-        </service>
-
-        <service id="pamil.cart.adjust_cart_item_quantity.action" class="Pamil\Cart\Infrastructure\Http\Action\AdjustCartItemQuantityAction">
-            <argument type="service" id="broadway.command_handling.command_bus" />
-        </service>
-
-        <service id="pamil.cart.adjust_cart_item_quantity.handler" class="Pamil\Cart\Application\CommandHandler\AdjustCartItemQuantityHandler">
-            <argument type="service" id="pamil.cart.cart_repository" />
-            <tag name="broadway.command_handler" />
-        </service>
-
-        <service id="pamil.cart.remove_cart_item.action" class="Pamil\Cart\Infrastructure\Http\Action\RemoveCartItemAction">
-            <argument type="service" id="broadway.command_handling.command_bus" />
-        </service>
-
-        <service id="pamil.cart.remove_cart_item.handler" class="Pamil\Cart\Application\CommandHandler\RemoveCartItemHandler">
-            <argument type="service" id="pamil.cart.cart_repository" />
-            <tag name="broadway.command_handler" />
-        </service>
-
-        <service class="Pamil\Cart\Infrastructure\Http\ExceptionListener">
-            <tag name="kernel.event_listener" event="kernel.exception" method="__invoke" />
-        </service>
-
-        <service id="pamil.cart.cart_repository" class="Pamil\Cart\Infrastructure\Repository\BroadwayCartRepository">
-            <argument type="service">
-                <service class="Broadway\EventSourcing\EventSourcingRepository">
-                    <argument type="service" id="broadway.event_store" />
-                    <argument type="service" id="broadway.event_handling.event_bus" />
-                    <argument>Pamil\Cart\Domain\Model\Cart</argument>
-                    <argument type="service">
-                        <service class="Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory" />
-                    </argument>
-                </service>
-            </argument>
-        </service>
-    </services>
+    <imports>
+        <import resource="container/command.xml" />
+        <import resource="container/query.xml" />
+    </imports>
 </container>
