@@ -9,7 +9,7 @@ use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use Broadway\EventHandling\EventBus;
 
-final class ProjectorScenario
+final class InfrastructureReadScenario implements ReadScenario
 {
     /** @var EventBus */
     private $eventBus;
@@ -26,7 +26,7 @@ final class ProjectorScenario
     }
 
     /** {@inheritdoc} */
-    public function withAggregateId(string $aggregateId): self
+    public function withAggregateId(string $aggregateId): Scenario
     {
         if (null !== $this->aggregateId) {
             throw new \DomainException('Aggregate ID is already specified!');
@@ -38,7 +38,7 @@ final class ProjectorScenario
     }
 
     /** {@inheritdoc} */
-    public function given($event): self
+    public function given($event): Scenario
     {
         if (is_callable($event)) {
             $event = $event($this->aggregateId);
@@ -52,7 +52,7 @@ final class ProjectorScenario
     }
 
     /** {@inheritdoc} */
-    public function when(callable $action): self
+    public function when(callable $action): Scenario
     {
         $action($this->aggregateId);
 
@@ -60,7 +60,7 @@ final class ProjectorScenario
     }
 
     /** {@inheritdoc} */
-    public function then(callable $assertion): self
+    public function then(callable $assertion): ReadScenario
     {
         $assertion($this->aggregateId);
 

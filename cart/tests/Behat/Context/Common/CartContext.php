@@ -10,7 +10,7 @@ use Pamil\Cart\Common\Domain\Event\CartItemQuantityAdjusted;
 use Pamil\Cart\Common\Domain\Event\CartItemRemoved;
 use Pamil\Cart\Common\Domain\Event\CartPickedUp;
 use Pamil\Cart\Write\Domain\Model\CartId;
-use Tests\Pamil\Cart\Behat\Scenario;
+use Tests\Pamil\Cart\Behat\WriteScenario;
 use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context
@@ -96,7 +96,7 @@ final class CartContext implements Context
         $this->scenario()->then(new CartItemRemoved($cartItemId));
     }
 
-    private function scenario(): Scenario
+    private function scenario(): WriteScenario
     {
         return $this->sharedStorage->get('cart');
     }

@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Pamil\Cart\Behat;
 
-use Broadway\CommandHandling\CommandBus;
-use Broadway\CommandHandling\CommandHandler;
-use Broadway\CommandHandling\SimpleCommandBus;
 use Broadway\Domain\DomainEventStream;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use Broadway\EventStore\EventStore;
 use Broadway\EventStore\EventStreamNotFoundException;
-use Broadway\EventStore\TraceableEventStore;
-use PHPUnit\Framework\Assert;
 
-final class InfrastructureScenario extends AbstractScenario
+final class InfrastructureWriteScenario extends AbstractWriteScenario
 {
     /** @var EventStore  */
     private $eventStore;

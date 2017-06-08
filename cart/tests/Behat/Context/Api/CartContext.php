@@ -8,7 +8,7 @@ use Behat\Behat\Context\Context;
 use Broadway\EventStore\EventStore;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Symfony\Bundle\FrameworkBundle\Client;
-use Tests\Pamil\Cart\Behat\InfrastructureScenario;
+use Tests\Pamil\Cart\Behat\InfrastructureWriteScenario;
 use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context
@@ -22,7 +22,7 @@ final class CartContext implements Context
     public function __construct(SharedStorage $sharedStorage, EventStore $eventStore, Client $client)
     {
         $this->sharedStorage = $sharedStorage;
-        $this->sharedStorage->define('cart',  new InfrastructureScenario($eventStore));
+        $this->sharedStorage->define('cart',  new InfrastructureWriteScenario($eventStore));
 
         $this->client = $client;
     }
@@ -93,7 +93,7 @@ final class CartContext implements Context
         });
     }
 
-    private function scenario(): InfrastructureScenario
+    private function scenario(): InfrastructureWriteScenario
     {
         return $this->sharedStorage->get('cart');
     }

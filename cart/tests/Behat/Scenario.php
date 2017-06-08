@@ -36,24 +36,4 @@ interface Scenario
      * @return self
      */
     public function when(callable $action): self;
-
-    /**
-     * Can be run more than once.
-     *
-     * @param callable|mixed $event Event that should have happened after an action.
-     *                              Or a callable receiving aggregate root id and returning that event.
-     *
-     * @return self
-     */
-    public function then($event): self;
-
-    /**
-     * Can be run more than once.
-     *
-     * @param callable|mixed $event Event that should have NOT happened after an action.
-     *                              Or a callable receiving aggregate root id and returning that event.
-     *
-     * @return self
-     */
-    public function thenNot($event): self;
 }

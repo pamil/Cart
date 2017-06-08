@@ -6,7 +6,7 @@ namespace Tests\Pamil\Cart\Behat;
 
 use PHPUnit\Framework\Assert;
 
-abstract class AbstractScenario implements Scenario
+abstract class AbstractWriteScenario implements WriteScenario
 {
     /** @var string|null */
     protected $aggregateId;
@@ -27,7 +27,7 @@ abstract class AbstractScenario implements Scenario
     abstract public function when(callable $action): Scenario;
 
     /** {@inheritdoc} */
-    final public function then($event): Scenario
+    final public function then($event): WriteScenario
     {
         if (is_callable($event)) {
             $event = $event($this->aggregateId);
@@ -39,7 +39,7 @@ abstract class AbstractScenario implements Scenario
     }
 
     /** {@inheritdoc} */
-    final public function thenNot($event): Scenario
+    final public function thenNot($event): WriteScenario
     {
         if (is_callable($event)) {
             $event = $event($this->aggregateId);

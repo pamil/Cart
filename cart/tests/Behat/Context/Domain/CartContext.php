@@ -8,7 +8,7 @@ use Behat\Behat\Context\Context;
 use Pamil\Cart\Write\Domain\Model\Cart;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Pamil\Cart\Write\Domain\Model\Quantity;
-use Tests\Pamil\Cart\Behat\DomainScenario;
+use Tests\Pamil\Cart\Behat\DomainWriteScenario;
 use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context
@@ -19,7 +19,7 @@ final class CartContext implements Context
     public function __construct(SharedStorage $sharedStorage)
     {
         $this->sharedStorage = $sharedStorage;
-        $this->sharedStorage->define('cart', new DomainScenario(Cart::class));
+        $this->sharedStorage->define('cart', new DomainWriteScenario(Cart::class));
     }
 
     /**
@@ -79,7 +79,7 @@ final class CartContext implements Context
         });
     }
 
-    private function scenario(): DomainScenario
+    private function scenario(): DomainWriteScenario
     {
         return $this->sharedStorage->get('cart');
     }

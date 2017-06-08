@@ -12,7 +12,7 @@ use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
 use PHPUnit\Framework\Assert;
 
-final class DomainScenario extends AbstractScenario
+final class DomainWriteScenario extends AbstractWriteScenario
 {
     /** @var string */
     private $aggregateRootClass;

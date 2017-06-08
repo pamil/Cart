@@ -23,7 +23,7 @@ use Pamil\Cart\Write\Application\Exception\CartAlreadyPickedUpException;
 use Pamil\Cart\Write\Domain\Model\Cart;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Pamil\Cart\Write\Infrastructure\Repository\BroadwayCartRepository;
-use Tests\Pamil\Cart\Behat\InfrastructureScenario;
+use Tests\Pamil\Cart\Behat\InfrastructureWriteScenario;
 use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context
@@ -39,7 +39,7 @@ final class CartContext implements Context
         $eventStore = new InMemoryEventStore();
 
         $this->sharedStorage = $sharedStorage;
-        $this->sharedStorage->define('cart', new InfrastructureScenario($eventStore));
+        $this->sharedStorage->define('cart', new InfrastructureWriteScenario($eventStore));
 
         $cartRepository = new BroadwayCartRepository(new EventSourcingRepository(
             $eventStore,
@@ -126,7 +126,7 @@ final class CartContext implements Context
         });
     }
 
-    private function scenario(): InfrastructureScenario
+    private function scenario(): InfrastructureWriteScenario
     {
         return $this->sharedStorage->get('cart');
     }

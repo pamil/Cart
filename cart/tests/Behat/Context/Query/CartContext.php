@@ -13,7 +13,7 @@ use Pamil\Cart\Read\Domain\Model\Cart;
 use Pamil\Cart\Read\Infrastructure\Repository\InMemoryCartRepository;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use PHPUnit\Framework\Assert;
-use Tests\Pamil\Cart\Behat\ProjectorScenario;
+use Tests\Pamil\Cart\Behat\InfrastructureReadScenario;
 use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context
@@ -32,7 +32,7 @@ final class CartContext implements Context
         $eventBus = new SimpleEventBus();
 
         $this->sharedStorage = $sharedStorage;
-        $this->sharedStorage->define('cart', new ProjectorScenario($eventBus));
+        $this->sharedStorage->define('cart', new InfrastructureReadScenario($eventBus));
         $this->repository = new InMemoryCartRepository();
 
         $eventBus->subscribe(new CartProjector($this->repository));
@@ -79,7 +79,7 @@ final class CartContext implements Context
         });
     }
 
-    private function scenario(): ProjectorScenario
+    private function scenario(): InfrastructureReadScenario
     {
         return $this->sharedStorage->get('cart');
     }
