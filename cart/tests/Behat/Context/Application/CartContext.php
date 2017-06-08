@@ -24,23 +24,22 @@ use Pamil\Cart\Write\Domain\Model\Cart;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Pamil\Cart\Write\Infrastructure\Repository\BroadwayCartRepository;
 use Tests\Pamil\Cart\Behat\InfrastructureScenario;
-use Tests\Pamil\Cart\Behat\Scenario;
-use Tests\Pamil\Cart\Behat\ScenarioStorage;
+use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context
 {
-    /** @var ScenarioStorage */
-    private $scenarioStorage;
+    /** @var SharedStorage */
+    private $sharedStorage;
 
     /** @var CommandBus */
     private $commandBus;
 
-    public function __construct(ScenarioStorage $scenarioStorage)
+    public function __construct(SharedStorage $sharedStorage)
     {
         $eventStore = new InMemoryEventStore();
 
-        $this->scenarioStorage = $scenarioStorage;
-        $this->scenarioStorage->define('cart', new InfrastructureScenario($eventStore));
+        $this->sharedStorage = $sharedStorage;
+        $this->sharedStorage->define('cart', new InfrastructureScenario($eventStore));
 
         $cartRepository = new BroadwayCartRepository(new EventSourcingRepository(
             $eventStore,
@@ -127,8 +126,8 @@ final class CartContext implements Context
         });
     }
 
-    private function scenario(): Scenario
+    private function scenario(): InfrastructureScenario
     {
-        return $this->scenarioStorage->get('cart');
+        return $this->sharedStorage->get('cart');
     }
 }
