@@ -57,7 +57,7 @@ Feature: Managing the cart
         When I try to add two "Icewind Dale" cart items to that cart
         Then two "Icewind Dale" cart items should not be added to the cart
 
-    @read @application
+    @read @application @api
     Scenario: Providing cart details information
         Given the cart was picked up
         And three "Fallout" cart items were added to the cart

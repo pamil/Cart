@@ -50,3 +50,12 @@ default:
 
             filters:
                 tags: "@read && @application"
+
+        read_api:
+            contexts_services:
+                - pamil.context.common.cart
+                - pamil.context.read.api.cart
+                - pamil.context.transform.number
+
+            filters:
+                tags: "@read && @api"
