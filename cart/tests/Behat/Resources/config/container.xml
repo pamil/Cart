@@ -7,6 +7,11 @@
             <tag name="fob.context_service" />
         </service>
 
+        <service id="pamil.context.hook.redis" class="Tests\Pamil\Cart\Behat\Context\Hook\RedisContext">
+            <argument type="service" id="__symfony__.snc_redis.default" />
+            <tag name="fob.context_service" />
+        </service>
+
         <service id="pamil.context.hook.event_store" class="Tests\Pamil\Cart\Behat\Context\Hook\EventStoreContext">
             <argument type="service" id="__symfony__.kernel" />
             <tag name="fob.context_service" />

@@ -54,6 +54,7 @@ default:
         read_api:
             contexts_services:
                 - pamil.context.common.cart
+                - pamil.context.hook.redis
                 - pamil.context.read.api.cart
                 - pamil.context.transform.number
 
