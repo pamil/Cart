@@ -23,7 +23,7 @@ use Pamil\Cart\Write\Application\Exception\CartAlreadyPickedUpException;
 use Pamil\Cart\Write\Domain\Model\Cart;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Pamil\Cart\Write\Infrastructure\Repository\BroadwayCartRepository;
-use Tests\Pamil\Cart\Behat\InfrastructureWriteScenario;
+use Tests\Pamil\Cart\Behat\Scenario\Write\InfrastructureWriteScenario;
 use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context

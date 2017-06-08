@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat;
+namespace Tests\Pamil\Cart\Behat\Scenario\Read;
 
 use Broadway\Domain\DomainEventStream;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use Broadway\EventHandling\EventBus;
+use Tests\Pamil\Cart\Behat\Scenario\Scenario;
 
 final class InfrastructureReadScenario implements ReadScenario
 {

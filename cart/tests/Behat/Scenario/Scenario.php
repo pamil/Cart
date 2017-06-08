@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat;
+namespace Tests\Pamil\Cart\Behat\Scenario;
 
 interface Scenario
 {

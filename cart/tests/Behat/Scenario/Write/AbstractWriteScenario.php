@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat;
+namespace Tests\Pamil\Cart\Behat\Scenario\Write;
 
 use PHPUnit\Framework\Assert;
+use Tests\Pamil\Cart\Behat\Scenario\Scenario;
 
 abstract class AbstractWriteScenario implements WriteScenario
 {

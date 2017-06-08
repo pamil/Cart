@@ -10,7 +10,7 @@ use Pamil\Cart\Common\Domain\Event\CartItemQuantityAdjusted;
 use Pamil\Cart\Common\Domain\Event\CartItemRemoved;
 use Pamil\Cart\Common\Domain\Event\CartPickedUp;
 use Pamil\Cart\Write\Domain\Model\CartId;
-use Tests\Pamil\Cart\Behat\WriteScenario;
+use Tests\Pamil\Cart\Behat\Scenario\Write\WriteScenario;
 use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context

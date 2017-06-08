@@ -8,7 +8,7 @@ use Behat\Behat\Context\Context;
 use Broadway\EventStore\EventStore;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Symfony\Bundle\FrameworkBundle\Client;
-use Tests\Pamil\Cart\Behat\InfrastructureWriteScenario;
+use Tests\Pamil\Cart\Behat\Scenario\Write\InfrastructureWriteScenario;
 use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context

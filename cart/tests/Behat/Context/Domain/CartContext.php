@@ -8,7 +8,7 @@ use Behat\Behat\Context\Context;
 use Pamil\Cart\Write\Domain\Model\Cart;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Pamil\Cart\Write\Domain\Model\Quantity;
-use Tests\Pamil\Cart\Behat\DomainWriteScenario;
+use Tests\Pamil\Cart\Behat\Scenario\Write\DomainWriteScenario;
 use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context

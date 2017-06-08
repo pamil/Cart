@@ -13,7 +13,7 @@ use Pamil\Cart\Read\Domain\Model\Cart;
 use Pamil\Cart\Read\Infrastructure\Repository\InMemoryCartRepository;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use PHPUnit\Framework\Assert;
-use Tests\Pamil\Cart\Behat\InfrastructureReadScenario;
+use Tests\Pamil\Cart\Behat\Scenario\Read\InfrastructureReadScenario;
 use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context
