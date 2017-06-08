@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Infrastructure\Http\Action;
+namespace Tests\Pamil\Cart\Write\Infrastructure\Http\Action;
 
 use Pamil\Cart\Write\Application\Command\AddCartItem;
 use Pamil\Cart\Write\Application\Command\PickUpCart;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Domain\Model;
+namespace Tests\Pamil\Cart\Write\Domain\Model;
 
 use Pamil\Cart\Write\Domain\Model\CartId;
 use PHPUnit\Framework\Assert;

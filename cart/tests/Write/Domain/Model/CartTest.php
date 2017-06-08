@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Domain\Model;
+namespace Tests\Pamil\Cart\Write\Domain\Model;
 
 use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
 use Broadway\EventSourcing\Testing\AggregateRootScenarioTestCase;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Infrastructure\Http\Action;
+namespace Tests\Pamil\Cart\Write\Infrastructure\Http\Action;
 
 use Pamil\Cart\Write\Application\Command\AddCartItem;
 use Pamil\Cart\Write\Application\Command\PickUpCart;
@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 
-final class AddCartItemActionTest extends WebTestCase
+final class AdjustCartItemQuantityActionTest extends WebTestCase
 {
     /** {@inheritdoc} */
     protected function setUp(): void
@@ -21,13 +21,14 @@ final class AddCartItemActionTest extends WebTestCase
     }
 
     /** @test */
-    public function it_adds_cart_item_to_picked_up_cart(): void
+    public function it_adjust_cart_item_quantity(): void
     {
         $client = static::createClient();
 
         $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new PickUpCart('457e2ac8-8daf-47aa-a703-39b42d7f82ce'));
+        $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new AddCartItem('457e2ac8-8daf-47aa-a703-39b42d7f82ce', 'Fallout', 3));
 
-        $client->request('POST', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
+        $client->request('PUT', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
             'cartItemId' => 'Fallout',
             'quantity' => 5,
         ]));
@@ -39,11 +40,11 @@ final class AddCartItemActionTest extends WebTestCase
     }
 
     /** @test */
-    public function it_fails_while_trying_to_add_cart_item_to_unexisting_cart(): void
+    public function it_fails_while_trying_to_adjust_cart_item_quantity_in_an_unexisting_cart(): void
     {
         $client = static::createClient();
 
-        $client->request('POST', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
+        $client->request('PUT', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
             'cartItemId' => 'Fallout',
             'quantity' => 5,
         ]));
@@ -55,24 +56,21 @@ final class AddCartItemActionTest extends WebTestCase
     }
 
     /** @test */
-    public function it_fails_while_trying_to_add_more_than_three_different_cart_items(): void
+    public function it_fails_while_trying_to_adjust_cart_item_quantity_of_unexisting_cart_item(): void
     {
         $client = static::createClient();
 
         $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new PickUpCart('457e2ac8-8daf-47aa-a703-39b42d7f82ce'));
-        $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new AddCartItem('457e2ac8-8daf-47aa-a703-39b42d7f82ce', 'Bloodborne', 3));
-        $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new AddCartItem('457e2ac8-8daf-47aa-a703-39b42d7f82ce', 'Baldur\'s gate', 7));
-        $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new AddCartItem('457e2ac8-8daf-47aa-a703-39b42d7f82ce', 'Don\'t Starve', 5));
 
-        $client->request('POST', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
+        $client->request('PUT', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
             'cartItemId' => 'Fallout',
-            'quantity' => 2,
+            'quantity' => 5,
         ]));
 
         $response = $client->getResponse();
 
-        $this->assertSame(403, $response->getStatusCode());
-        $this->assertSame('{"error":"Cart with ID \"457e2ac8-8daf-47aa-a703-39b42d7f82ce\" has reached its items limit!"}', $response->getContent());
+        $this->assertSame(409, $response->getStatusCode());
+        $this->assertSame('{"error":"Cart item with ID \"Fallout\" was not found in cart with ID \"457e2ac8-8daf-47aa-a703-39b42d7f82ce\"!"}', $response->getContent());
     }
 
     /** @test */
@@ -80,7 +78,7 @@ final class AddCartItemActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('POST', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([]));
+        $client->request('PUT', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([]));
 
         $response = $client->getResponse();
 
