@@ -4,7 +4,7 @@ default:
 
         FriendsOfBehat\SymfonyExtension:
             kernel:
-                class: Pamil\Cart\Infrastructure\PamilCartKernel
+                class: Pamil\Cart\Common\Infrastructure\PamilCartKernel
 
         FriendsOfBehat\ContextServiceExtension:
             imports:

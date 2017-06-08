@@ -10,12 +10,12 @@ use Broadway\EventHandling\EventBus;
 use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
 use Broadway\EventSourcing\EventSourcingRepository;
 use Broadway\EventStore\EventStore;
-use Pamil\Cart\Application\Command\PickUpCart;
-use Pamil\Cart\Application\CommandHandler\PickUpCartHandler;
-use Pamil\Cart\Domain\Event\CartPickedUp;
-use Pamil\Cart\Domain\Model\Cart;
-use Pamil\Cart\Domain\Model\CartId;
-use Pamil\Cart\Infrastructure\Repository\BroadwayCartRepository;
+use Pamil\Cart\Common\Domain\Event\CartPickedUp;
+use Pamil\Cart\Write\Application\Command\PickUpCart;
+use Pamil\Cart\Write\Application\CommandHandler\PickUpCartHandler;
+use Pamil\Cart\Write\Domain\Model\Cart;
+use Pamil\Cart\Write\Domain\Model\CartId;
+use Pamil\Cart\Write\Infrastructure\Repository\BroadwayCartRepository;
 
 final class PickUpCartHandlerTest extends CommandHandlerScenarioTestCase
 {
@@ -49,7 +49,7 @@ final class PickUpCartHandlerTest extends CommandHandlerScenarioTestCase
     /**
      * @test
      *
-     * @expectedException \Pamil\Cart\Application\Exception\CartAlreadyPickedUpException
+     * @expectedException \Pamil\Cart\Write\Application\Exception\CartAlreadyPickedUpException
      */
     public function it_fails_if_trying_to_pick_up_the_same_cart_twice(): void
     {

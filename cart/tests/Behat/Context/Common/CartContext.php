@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Tests\Pamil\Cart\Behat\Context\Common;
 
 use Behat\Behat\Context\Context;
-use Pamil\Cart\Domain\Event\CartItemAdded;
-use Pamil\Cart\Domain\Event\CartItemQuantityAdjusted;
-use Pamil\Cart\Domain\Event\CartItemRemoved;
-use Pamil\Cart\Domain\Event\CartPickedUp;
-use Pamil\Cart\Domain\Model\CartId;
+use Pamil\Cart\Common\Domain\Event\CartItemAdded;
+use Pamil\Cart\Common\Domain\Event\CartItemQuantityAdjusted;
+use Pamil\Cart\Common\Domain\Event\CartItemRemoved;
+use Pamil\Cart\Common\Domain\Event\CartPickedUp;
+use Pamil\Cart\Write\Domain\Model\CartId;
 use Tests\Pamil\Cart\Behat\ScenarioStorage;
 use Tests\Pamil\Cart\Behat\Scenario;
 

@@ -6,7 +6,7 @@ namespace Tests\Pamil\Cart\Behat\Context\Api;
 
 use Behat\Behat\Context\Context;
 use Broadway\EventStore\EventStore;
-use Pamil\Cart\Domain\Model\CartId;
+use Pamil\Cart\Write\Domain\Model\CartId;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Tests\Pamil\Cart\Behat\ScenarioStorage;
 use Tests\Pamil\Cart\Behat\InfrastructureScenario;

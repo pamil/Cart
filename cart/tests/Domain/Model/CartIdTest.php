@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Pamil\Cart\Domain\Model;
 
-use Pamil\Cart\Domain\Model\CartId;
+use Pamil\Cart\Write\Domain\Model\CartId;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

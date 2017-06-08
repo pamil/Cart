@@ -1,6 +1,6 @@
 <phpunit >
     <php>
-        <server name="KERNEL_CLASS" value="Pamil\Cart\Infrastructure\PamilCartKernel" />
+        <server name="KERNEL_CLASS" value="Pamil\Cart\Common\Infrastructure\PamilCartKernel" />
     </php>
     <testsuite name="Pamil\Cart">
         <directory suffix="Test.php">tests/</directory>

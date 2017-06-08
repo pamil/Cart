@@ -6,12 +6,12 @@ namespace Tests\Pamil\Cart\Behat\Context\Query;
 
 use Behat\Behat\Context\Context;
 use Broadway\EventHandling\SimpleEventBus;
-use Pamil\Cart\Domain\Event\CartItemAdded;
-use Pamil\Cart\Domain\Event\CartPickedUp;
-use Pamil\Cart\Domain\Model\CartId;
-use Pamil\Cart\Infrastructure\ReadModel\Cart;
-use Pamil\Cart\Infrastructure\ReadModel\CartProjector;
-use Pamil\Cart\Infrastructure\ReadModel\InMemoryCartRepository;
+use Pamil\Cart\Common\Domain\Event\CartItemAdded;
+use Pamil\Cart\Common\Domain\Event\CartPickedUp;
+use Pamil\Cart\Read\Application\Projector\CartProjector;
+use Pamil\Cart\Read\Domain\Model\Cart;
+use Pamil\Cart\Read\Infrastructure\Repository\InMemoryCartRepository;
+use Pamil\Cart\Write\Domain\Model\CartId;
 use PHPUnit\Framework\Assert;
 use Tests\Pamil\Cart\Behat\ProjectorScenario;
 use Tests\Pamil\Cart\Behat\ScenarioStorage;

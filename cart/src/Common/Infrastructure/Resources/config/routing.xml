@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+    <route id="pamil_cart_pick_up" path="/{cartId}" methods="POST">
+        <default key="_controller">pamil.cart_write.pick_up_cart.action</default>
+    </route>
+
+    <route id="pamil_cart_add_cart_item" path="/{cartId}/items" methods="POST">
+        <default key="_controller">pamil.cart_write.add_cart_item.action</default>
+    </route>
+
+    <route id="pamil_cart_adjust_cart_item_quantity" path="/{cartId}/items" methods="PUT">
+        <default key="_controller">pamil.cart_write.adjust_cart_item_quantity.action</default>
+    </route>
+
+    <route id="pamil_cart_remove_cart_item" path="/{cartId}/items" methods="DELETE">
+        <default key="_controller">pamil.cart_write.remove_cart_item.action</default>
+    </route>
+</routes>

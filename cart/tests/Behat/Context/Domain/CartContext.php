@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Pamil\Cart\Behat\Context\Domain;
 
 use Behat\Behat\Context\Context;
-use Pamil\Cart\Domain\Model\Cart;
-use Pamil\Cart\Domain\Model\CartId;
-use Pamil\Cart\Domain\Model\Quantity;
+use Pamil\Cart\Write\Domain\Model\Cart;
+use Pamil\Cart\Write\Domain\Model\CartId;
+use Pamil\Cart\Write\Domain\Model\Quantity;
 use Tests\Pamil\Cart\Behat\DomainScenario;
 use Tests\Pamil\Cart\Behat\Scenario;
 use Tests\Pamil\Cart\Behat\ScenarioStorage;

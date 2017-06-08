@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Pamil\Cart\Infrastructure\Http\Action;
 
-use Pamil\Cart\Application\Command\AddCartItem;
-use Pamil\Cart\Application\Command\PickUpCart;
+use Pamil\Cart\Write\Application\Command\AddCartItem;
+use Pamil\Cart\Write\Application\Command\PickUpCart;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\StringInput;

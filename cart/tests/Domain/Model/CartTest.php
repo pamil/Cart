@@ -6,13 +6,13 @@ namespace Tests\Pamil\Cart\Domain\Model;
 
 use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
 use Broadway\EventSourcing\Testing\AggregateRootScenarioTestCase;
-use Pamil\Cart\Domain\Event\CartItemAdded;
-use Pamil\Cart\Domain\Event\CartItemQuantityAdjusted;
-use Pamil\Cart\Domain\Event\CartItemRemoved;
-use Pamil\Cart\Domain\Event\CartPickedUp;
-use Pamil\Cart\Domain\Model\Cart;
-use Pamil\Cart\Domain\Model\CartId;
-use Pamil\Cart\Domain\Model\Quantity;
+use Pamil\Cart\Common\Domain\Event\CartItemAdded;
+use Pamil\Cart\Common\Domain\Event\CartItemQuantityAdjusted;
+use Pamil\Cart\Common\Domain\Event\CartItemRemoved;
+use Pamil\Cart\Common\Domain\Event\CartPickedUp;
+use Pamil\Cart\Write\Domain\Model\Cart;
+use Pamil\Cart\Write\Domain\Model\CartId;
+use Pamil\Cart\Write\Domain\Model\Quantity;
 
 final class CartTest extends AggregateRootScenarioTestCase
 {
@@ -140,7 +140,7 @@ final class CartTest extends AggregateRootScenarioTestCase
     /**
      * @test
      *
-     * @expectedException \Pamil\Cart\Domain\Exception\CartItemNotFoundException
+     * @expectedException \Pamil\Cart\Write\Domain\Exception\CartItemNotFoundException
      */
     public function cart_item_fails_while_adjusting_quantity_if_it_was_not_added_before()
     {
@@ -159,7 +159,7 @@ final class CartTest extends AggregateRootScenarioTestCase
     /**
      * @test
      *
-     * @expectedException \Pamil\Cart\Domain\Exception\CartItemNotFoundException
+     * @expectedException \Pamil\Cart\Write\Domain\Exception\CartItemNotFoundException
      */
     public function cart_fails_while_removing_if_it_was_not_added_before()
     {
@@ -178,7 +178,7 @@ final class CartTest extends AggregateRootScenarioTestCase
     /**
      * @test
      *
-     * @expectedException \Pamil\Cart\Domain\Exception\CartItemsLimitReachedException
+     * @expectedException \Pamil\Cart\Write\Domain\Exception\CartItemsLimitReachedException
      */
     public function cart_fails_if_trying_to_add_more_than_three_different_products()
     {
