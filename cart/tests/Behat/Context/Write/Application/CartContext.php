@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Context\Application;
+namespace Tests\Pamil\Cart\Behat\Context\Write\Application;
 
 use Behat\Behat\Context\Context;
 use Broadway\CommandHandling\CommandBus;

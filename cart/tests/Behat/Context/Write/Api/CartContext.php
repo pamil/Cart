@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Context\Api;
+namespace Tests\Pamil\Cart\Behat\Context\Write\Api;
 
 use Behat\Behat\Context\Context;
 use Broadway\EventStore\EventStore;

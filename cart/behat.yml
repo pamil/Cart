@@ -14,34 +14,38 @@ default:
         write_domain:
             contexts_services:
                 - pamil.context.common.cart
-                - pamil.context.domain.cart
                 - pamil.context.transform.number
+                - pamil.context.write.common.cart
+                - pamil.context.write.domain.cart
 
             filters:
                 tags: "@write && @domain"
 
         write_application:
             contexts_services:
-                - pamil.context.application.cart
                 - pamil.context.common.cart
                 - pamil.context.transform.number
+                - pamil.context.write.application.cart
+                - pamil.context.write.common.cart
 
             filters:
                 tags: "@write && @application"
 
         write_api:
             contexts_services:
-                - pamil.context.api.cart
                 - pamil.context.common.cart
                 - pamil.context.hook.event_store
                 - pamil.context.transform.number
+                - pamil.context.write.api.cart
+                - pamil.context.write.common.cart
 
             filters:
                 tags: "@write && @api"
 
         read_application:
             contexts_services:
-                - pamil.context.query.cart
+                - pamil.context.common.cart
+                - pamil.context.read.application.cart
                 - pamil.context.transform.number
 
             filters:

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Context\Domain;
+namespace Tests\Pamil\Cart\Behat\Context\Write\Domain;
 
 use Behat\Behat\Context\Context;
 use Pamil\Cart\Write\Domain\Model\Cart;
