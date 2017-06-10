@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Scenario\Write;
+namespace FriendsOfBehat\BroadwayExtension\Scenario\Write;
 
 use Broadway\Domain\DomainEventStream;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use Broadway\EventStore\EventStore;
 use Broadway\EventStore\EventStreamNotFoundException;
-use Tests\Pamil\Cart\Behat\Scenario\Scenario;
+use FriendsOfBehat\BroadwayExtension\Scenario\Scenario;
 
 final class InfrastructureWriteScenario extends AbstractWriteScenario
 {

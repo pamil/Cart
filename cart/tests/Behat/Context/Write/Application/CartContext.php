@@ -11,6 +11,8 @@ use Broadway\EventHandling\SimpleEventBus;
 use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
 use Broadway\EventSourcing\EventSourcingRepository;
 use Broadway\EventStore\InMemoryEventStore;
+use FriendsOfBehat\BroadwayExtension\Scenario\Write\InfrastructureWriteScenario;
+use FriendsOfBehat\BroadwayExtension\Storage\SharedStorage;
 use Pamil\Cart\Write\Application\Command\AddCartItem;
 use Pamil\Cart\Write\Application\Command\AdjustCartItemQuantity;
 use Pamil\Cart\Write\Application\Command\PickUpCart;
@@ -23,8 +25,6 @@ use Pamil\Cart\Write\Application\Exception\CartAlreadyPickedUpException;
 use Pamil\Cart\Write\Domain\Model\Cart;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Pamil\Cart\Write\Infrastructure\Repository\BroadwayCartRepository;
-use Tests\Pamil\Cart\Behat\Scenario\Write\InfrastructureWriteScenario;
-use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context
 {

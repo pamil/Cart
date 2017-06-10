@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Tests\Pamil\Cart\Behat\Context\Write\Domain;
 
 use Behat\Behat\Context\Context;
+use FriendsOfBehat\BroadwayExtension\Scenario\Write\DomainWriteScenario;
+use FriendsOfBehat\BroadwayExtension\Storage\SharedStorage;
 use Pamil\Cart\Write\Domain\Model\Cart;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Pamil\Cart\Write\Domain\Model\Quantity;
-use Tests\Pamil\Cart\Behat\Scenario\Write\DomainWriteScenario;
-use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context
 {

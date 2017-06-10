@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Scenario\Write;
+namespace FriendsOfBehat\BroadwayExtension\Scenario\Write;
 
 use Broadway\Domain\DomainEventStream;
 use Broadway\Domain\DomainMessage;
@@ -11,7 +11,7 @@ use Broadway\EventSourcing\AggregateFactory\AggregateFactory;
 use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
 use PHPUnit\Framework\Assert;
-use Tests\Pamil\Cart\Behat\Scenario\Scenario;
+use FriendsOfBehat\BroadwayExtension\Scenario\Scenario;
 
 final class DomainWriteScenario extends AbstractWriteScenario
 {

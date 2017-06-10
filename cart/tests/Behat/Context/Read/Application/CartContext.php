@@ -6,15 +6,12 @@ namespace Tests\Pamil\Cart\Behat\Context\Read\Application;
 
 use Behat\Behat\Context\Context;
 use Broadway\EventHandling\SimpleEventBus;
-use Pamil\Cart\Common\Domain\Event\CartItemAdded;
-use Pamil\Cart\Common\Domain\Event\CartPickedUp;
+use FriendsOfBehat\BroadwayExtension\Scenario\Read\InfrastructureReadScenario;
+use FriendsOfBehat\BroadwayExtension\Storage\SharedStorage;
 use Pamil\Cart\Read\Application\Projector\CartProjector;
 use Pamil\Cart\Read\Domain\Model\Cart;
 use Pamil\Cart\Read\Infrastructure\Repository\InMemoryCartRepository;
-use Pamil\Cart\Write\Domain\Model\CartId;
 use PHPUnit\Framework\Assert;
-use Tests\Pamil\Cart\Behat\Scenario\Read\InfrastructureReadScenario;
-use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context
 {

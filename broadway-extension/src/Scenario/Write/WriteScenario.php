@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Scenario\Write;
+namespace FriendsOfBehat\BroadwayExtension\Scenario\Write;
 
-use Tests\Pamil\Cart\Behat\Scenario\Scenario;
+use FriendsOfBehat\BroadwayExtension\Scenario\Scenario;
 
 interface WriteScenario extends Scenario
 {

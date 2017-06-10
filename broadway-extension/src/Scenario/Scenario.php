@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Scenario;
+namespace FriendsOfBehat\BroadwayExtension\Scenario;
 
 interface Scenario
 {

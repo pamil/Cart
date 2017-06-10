@@ -6,10 +6,10 @@ namespace Tests\Pamil\Cart\Behat\Context\Write\Api;
 
 use Behat\Behat\Context\Context;
 use Broadway\EventStore\EventStore;
+use FriendsOfBehat\BroadwayExtension\Scenario\Write\InfrastructureWriteScenario;
+use FriendsOfBehat\BroadwayExtension\Storage\SharedStorage;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Symfony\Bundle\FrameworkBundle\Client;
-use Tests\Pamil\Cart\Behat\Scenario\Write\InfrastructureWriteScenario;
-use Tests\Pamil\Cart\Behat\SharedStorage;
 
 final class CartContext implements Context
 {
