@@ -22,6 +22,6 @@ final class ShowCartDetailsAction
     {
         $cart = $this->cartRepository->get($cartId);
 
-        return JsonResponse::fromJsonString(json_encode($cart), 200);
+        return JsonResponse::fromJsonString(json_encode($cart->serialize()), 200);
     }
 }

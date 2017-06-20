@@ -49,7 +49,7 @@
             <tag name="fob.context_service" />
         </service>
 
-        <service id="pamil.context.read.api.cart" class="Tests\Pamil\Cart\Behat\Context\Read\Application\CartContext">
+        <service id="pamil.context.read.api.cart" class="Tests\Pamil\Cart\Behat\Context\Read\Api\CartContext">
             <argument type="service" id="pamil.shared_storage" />
             <argument type="service" id="__symfony__.broadway.event_handling.event_bus" />
             <argument type="service" id="__symfony__.test.client" />
