@@ -29,7 +29,7 @@ final class CartContext implements Context
         $eventBus = new SimpleEventBus();
 
         $this->sharedStorage = $sharedStorage;
-        $this->sharedStorage->define('cart', new InfrastructureReadScenario($eventBus));
+        $this->sharedStorage->define('scenario', new InfrastructureReadScenario($eventBus));
         $this->repository = new InMemoryCartRepository();
 
         $eventBus->subscribe(new CartProjector($this->repository));
@@ -57,6 +57,6 @@ final class CartContext implements Context
 
     private function scenario(): InfrastructureReadScenario
     {
-        return $this->sharedStorage->get('cart');
+        return $this->sharedStorage->get('scenario');
     }
 }

@@ -76,6 +76,6 @@ final class CartContext implements Context
 
     private function scenario(): WriteScenario
     {
-        return $this->sharedStorage->get('cart');
+        return $this->sharedStorage->get('scenario');
     }
 }

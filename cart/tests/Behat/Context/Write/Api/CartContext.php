@@ -22,7 +22,7 @@ final class CartContext implements Context
     public function __construct(SharedStorage $sharedStorage, EventStore $eventStore, Client $client)
     {
         $this->sharedStorage = $sharedStorage;
-        $this->sharedStorage->define('cart',  new InfrastructureWriteScenario($eventStore));
+        $this->sharedStorage->define('scenario',  new InfrastructureWriteScenario($eventStore));
 
         $this->client = $client;
     }
@@ -95,6 +95,6 @@ final class CartContext implements Context
 
     private function scenario(): InfrastructureWriteScenario
     {
-        return $this->sharedStorage->get('cart');
+        return $this->sharedStorage->get('scenario');
     }
 }
