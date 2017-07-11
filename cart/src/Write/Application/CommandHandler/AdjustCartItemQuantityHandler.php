@@ -25,7 +25,7 @@ final class AdjustCartItemQuantityHandler implements CommandHandler
     {
         $cart = $this->cartRepository->get($command->cartId());
 
-        $cart->adjustItemQuantity($command->cartItemId(), new Quantity($command->quantity()));
+        $cart->adjustItemQuantity($command->productId(), new Quantity($command->quantity()));
 
         $this->cartRepository->save($cart);
     }

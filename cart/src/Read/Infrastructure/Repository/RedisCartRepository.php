@@ -22,7 +22,7 @@ final class RedisCartRepository implements CartRepository
     /** {@inheritdoc} */
     public function get(string $id): Cart
     {
-        $payload = json_decode($this->client->get($id) ?: '', true);
+        $payload = json_decode($this->client->get($this->redisId($id)) ?: '', true);
 
         if (null === $payload) {
             throw CartNotFoundException::create($id);
@@ -34,6 +34,11 @@ final class RedisCartRepository implements CartRepository
     /** {@inheritdoc} */
     public function save(Cart $cart): void
     {
-        $this->client->set($cart->id(), json_encode($cart->serialize()));
+        $this->client->set($this->redisId($cart->id()), json_encode($cart->serialize()));
+    }
+
+    private function redisId(string $cartId): string
+    {
+        return 'cart:' . $cartId;
     }
 }

@@ -25,11 +25,16 @@ use Pamil\Cart\Write\Application\Exception\CartAlreadyPickedUpException;
 use Pamil\Cart\Write\Domain\Model\Cart;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Pamil\Cart\Write\Infrastructure\Repository\BroadwayCartRepository;
+use Pamil\Cart\Write\Infrastructure\Repository\InMemoryProductCatalogue;
+use Pamil\Cart\Write\Infrastructure\Repository\ProductCatalogue;
 
 final class CartContext implements Context
 {
     /** @var SharedStorage */
     private $sharedStorage;
+
+    /** @var ProductCatalogue */
+    private $productCatalogue;
 
     /** @var CommandBus */
     private $commandBus;
@@ -41,6 +46,8 @@ final class CartContext implements Context
         $this->sharedStorage = $sharedStorage;
         $this->sharedStorage->define('scenario', new InfrastructureWriteScenario($eventStore));
 
+        $this->productCatalogue = new InMemoryProductCatalogue();
+
         $cartRepository = new BroadwayCartRepository(new EventSourcingRepository(
             $eventStore,
             new SimpleEventBus(),
@@ -50,9 +57,20 @@ final class CartContext implements Context
 
         $this->commandBus = new SimpleCommandBus();
         $this->commandBus->subscribe(new PickUpCartHandler($cartRepository));
-        $this->commandBus->subscribe(new AddCartItemHandler($cartRepository));
+        $this->commandBus->subscribe(new AddCartItemHandler($cartRepository, $this->productCatalogue));
         $this->commandBus->subscribe(new RemoveCartItemHandler($cartRepository));
         $this->commandBus->subscribe(new AdjustCartItemQuantityHandler($cartRepository));
+    }
+
+    /**
+     * @Given product :product was added to the catalogue
+     * @Given products :product1, :product2, :product3 and :product4 were added to the catalogue
+     */
+    public function productAddedToCatalogue(string ...$productsIds): void
+    {
+        foreach ($productsIds as $productId) {
+            $this->productCatalogue->add($productId);
+        }
     }
 
     /**
@@ -85,44 +103,44 @@ final class CartContext implements Context
     }
 
     /**
-     * @When I add :number :cartItemId cart items to that cart
+     * @When I add :number :productId cart items to that cart
      */
-    public function addCartItem(int $number, string $cartItemId): void
+    public function addCartItem(int $number, string $productId): void
     {
-        $this->scenario()->when(function (string $cartId) use ($number, $cartItemId) {
-            $this->commandBus->dispatch(new AddCartItem($cartId, $cartItemId, $number));
+        $this->scenario()->when(function (string $cartId) use ($number, $productId) {
+            $this->commandBus->dispatch(new AddCartItem($cartId, $productId, $number));
         });
     }
 
     /**
-     * @When I try to add :number :cartItemId cart items to that cart
+     * @When I try to add :number :productId cart items to that cart
      */
-    public function tryToAddCartItem(int $number, string $cartItemId): void
+    public function tryToAddCartItem(int $number, string $productId): void
     {
         try {
-            $this->addCartItem($number, $cartItemId);
+            $this->addCartItem($number, $productId);
         } catch (\Throwable $throwable) {
             return;
         }
     }
 
     /**
-     * @When I adjust :cartItemId cart item quantity to :number
+     * @When I adjust :productId cart item quantity to :number
      */
-    public function adjustCartItemQuantity(string $cartItemId, int $number): void
+    public function adjustCartItemQuantity(string $productId, int $number): void
     {
-        $this->scenario()->when(function (string $cartId) use ($number, $cartItemId) {
-            $this->commandBus->dispatch(new AdjustCartItemQuantity($cartId, $cartItemId, $number));
+        $this->scenario()->when(function (string $cartId) use ($number, $productId) {
+            $this->commandBus->dispatch(new AdjustCartItemQuantity($cartId, $productId, $number));
         });
     }
 
     /**
-     * @When I remove :cartItemId cart item from the cart
+     * @When I remove :productId cart item from the cart
      */
-    public function removeCartItem(string $cartItemId): void
+    public function removeCartItem(string $productId): void
     {
-        $this->scenario()->when(function (string $cartId) use ($cartItemId) {
-            $this->commandBus->dispatch(new RemoveCartItem($cartId, $cartItemId));
+        $this->scenario()->when(function (string $cartId) use ($productId) {
+            $this->commandBus->dispatch(new RemoveCartItem($cartId, $productId));
         });
     }
 

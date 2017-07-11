@@ -9,20 +9,20 @@ use Broadway\Serializer\Serializable;
 final class CartItemAdded implements Serializable
 {
     /** @var string */
-    private $cartItemId;
+    private $productId;
 
     /** @var int */
     private $quantity;
 
-    public function __construct(string $cartItemId, int $quantity)
+    public function __construct(string $productId, int $quantity)
     {
-        $this->cartItemId = $cartItemId;
+        $this->productId = $productId;
         $this->quantity = $quantity;
     }
 
-    public function cartItemId(): string
+    public function productId(): string
     {
-        return $this->cartItemId;
+        return $this->productId;
     }
 
     public function quantity(): int
@@ -33,12 +33,12 @@ final class CartItemAdded implements Serializable
     /** {@inheritdoc} */
     public static function deserialize(array $data): self
     {
-        return new self($data['cartItemId'], $data['quantity']);
+        return new self($data['productId'], $data['quantity']);
     }
 
     /** {@inheritdoc} */
     public function serialize(): array
     {
-        return ['cartItemId' => $this->cartItemId, 'quantity' => $this->quantity];
+        return ['productId' => $this->productId, 'quantity' => $this->quantity];
     }
 }

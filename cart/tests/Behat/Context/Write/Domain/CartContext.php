@@ -10,16 +10,34 @@ use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 use Pamil\Cart\Write\Domain\Model\Cart;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Pamil\Cart\Write\Domain\Model\Quantity;
+use Pamil\Cart\Write\Infrastructure\Repository\InMemoryProductCatalogue;
+use Pamil\Cart\Write\Infrastructure\Repository\ProductCatalogue;
 
 final class CartContext implements Context
 {
     /** @var SharedStorage */
     private $sharedStorage;
 
+    /** @var ProductCatalogue */
+    private $productCatalogue;
+
     public function __construct(SharedStorage $sharedStorage)
     {
         $this->sharedStorage = $sharedStorage;
         $this->sharedStorage->define('scenario', new DomainWriteScenario(Cart::class));
+
+        $this->productCatalogue = new InMemoryProductCatalogue();
+    }
+
+    /**
+     * @Given product :product was added to the catalogue
+     * @Given products :product1, :product2, :product3 and :product4 were added to the catalogue
+     */
+    public function productAddedToCatalogue(string ...$productsIds): void
+    {
+        foreach ($productsIds as $productId) {
+            $this->productCatalogue->add($productId);
+        }
     }
 
     /**
@@ -38,44 +56,44 @@ final class CartContext implements Context
     }
 
     /**
-     * @When I add :number :cartItemId cart items to that cart
+     * @When I add :number :productId cart items to that cart
      */
-    public function addCartItem(int $number, string $cartItemId): void
+    public function addCartItem(int $number, string $productId): void
     {
-        $this->scenario()->when(function (Cart $cart) use ($number, $cartItemId) {
-            $cart->addItem($cartItemId, new Quantity($number));
+        $this->scenario()->when(function (Cart $cart) use ($number, $productId) {
+            $cart->addItem($this->productCatalogue, $productId, new Quantity($number));
         });
     }
 
     /**
-     * @When I try to add :number :cartItemId cart items to that cart
+     * @When I try to add :number :productId cart items to that cart
      */
-    public function tryToAddCartItem(int $number, string $cartItemId): void
+    public function tryToAddCartItem(int $number, string $productId): void
     {
         try {
-            $this->addCartItem($number, $cartItemId);
+            $this->addCartItem($number, $productId);
         } catch (\Throwable $throwable) {
             return;
         }
     }
 
     /**
-     * @When I adjust :cartItemId cart item quantity to :number
+     * @When I adjust :productId cart item quantity to :number
      */
-    public function adjustCartItemQuantity(string $cartItemId, int $number): void
+    public function adjustCartItemQuantity(string $productId, int $number): void
     {
-        $this->scenario()->when(function (Cart $cart) use ($cartItemId, $number) {
-            $cart->adjustItemQuantity($cartItemId, new Quantity($number));
+        $this->scenario()->when(function (Cart $cart) use ($productId, $number) {
+            $cart->adjustItemQuantity($productId, new Quantity($number));
         });
     }
 
     /**
-     * @When I remove :cartItemId cart item from the cart
+     * @When I remove :productId cart item from the cart
      */
-    public function removeCartItem(string $cartItemId): void
+    public function removeCartItem(string $productId): void
     {
-        $this->scenario()->when(function (Cart $cart) use ($cartItemId) {
-            $cart->removeItem($cartItemId);
+        $this->scenario()->when(function (Cart $cart) use ($productId) {
+            $cart->removeItem($productId);
         });
     }
 

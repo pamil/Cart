@@ -10,12 +10,12 @@ final class RemoveCartItem
     private $cartId;
 
     /** @var string */
-    private $cartItemId;
+    private $productId;
 
-    public function __construct(string $cartId, string $cartItemId)
+    public function __construct(string $cartId, string $productId)
     {
         $this->cartId = $cartId;
-        $this->cartItemId = $cartItemId;
+        $this->productId = $productId;
     }
 
     public function cartId(): string
@@ -23,8 +23,8 @@ final class RemoveCartItem
         return $this->cartId;
     }
 
-    public function cartItemId(): string
+    public function productId(): string
     {
-        return $this->cartItemId;
+        return $this->productId;
     }
 }

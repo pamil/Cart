@@ -9,15 +9,20 @@ use Pamil\Cart\Write\Application\Command\AddCartItem;
 use Pamil\Cart\Write\Application\Exception\CartNotFoundException;
 use Pamil\Cart\Write\Application\Repository\CartRepository;
 use Pamil\Cart\Write\Domain\Model\Quantity;
+use Pamil\Cart\Write\Domain\Repository\ProductCatalogue;
 
 final class AddCartItemHandler implements CommandHandler
 {
     /** @var CartRepository */
     private $cartRepository;
 
-    public function __construct(CartRepository $cartRepository)
+    /** @var ProductCatalogue */
+    private $productCatalogue;
+
+    public function __construct(CartRepository $cartRepository, ProductCatalogue $productCatalogue)
     {
         $this->cartRepository = $cartRepository;
+        $this->productCatalogue = $productCatalogue;
     }
 
     /** @throws CartNotFoundException */
@@ -25,7 +30,7 @@ final class AddCartItemHandler implements CommandHandler
     {
         $cart = $this->cartRepository->get($command->cartId());
 
-        $cart->addItem($command->cartItemId(), new Quantity($command->quantity()));
+        $cart->addItem($this->productCatalogue, $command->productId(), new Quantity($command->quantity()));
 
         $this->cartRepository->save($cart);
     }

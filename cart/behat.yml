@@ -36,6 +36,7 @@ default:
             contexts_services:
                 - pamil.context.common.cart
                 - pamil.context.hook.event_store
+                - pamil.context.hook.redis
                 - pamil.context.transform.number
                 - pamil.context.write.api.cart
                 - pamil.context.write.common.cart

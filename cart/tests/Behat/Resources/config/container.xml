@@ -40,6 +40,7 @@
         <service id="pamil.context.write.api.cart" class="Tests\Pamil\Cart\Behat\Context\Write\Api\CartContext">
             <argument type="service" id="pamil.shared_storage" />
             <argument type="service" id="__symfony__.broadway.event_store" />
+            <argument type="service" id="__symfony__.pamil.cart_write.product_catalogue" />
             <argument type="service" id="__symfony__.test.client" />
             <tag name="fob.context_service" />
         </service>

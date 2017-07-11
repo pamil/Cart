@@ -11,26 +11,26 @@ use Pamil\Cart\Common\Domain\Event\CartItemRemoved;
 final class CartItem extends SimpleEventSourcedEntity
 {
     /** @var string */
-    private $cartItemId;
+    private $productId;
 
     /** @var Quantity */
     private $quantity;
 
-    public function __construct(string $cartItemId, Quantity $quantity)
+    public function __construct(string $productId, Quantity $quantity)
     {
-        $this->cartItemId = $cartItemId;
+        $this->productId = $productId;
         $this->quantity = $quantity;
     }
 
     public function adjustQuantity(Quantity $quantity): void
     {
         if ($quantity->isZero()) {
-            $this->apply(new CartItemRemoved($this->cartItemId));
+            $this->apply(new CartItemRemoved($this->productId));
 
             return;
         }
 
-        $this->apply(new CartItemQuantityAdjusted($this->cartItemId, $quantity->toInt()));
+        $this->apply(new CartItemQuantityAdjusted($this->productId, $quantity->toInt()));
     }
 
     public function increaseQuantity(int $delta): void
@@ -38,7 +38,7 @@ final class CartItem extends SimpleEventSourcedEntity
         $this->adjustQuantity($this->quantity->increase($delta));
     }
 
-    public function applyCartItemQuantityAdjusted(CartItemQuantityAdjusted $event): void
+    protected function applyCartItemQuantityAdjusted(CartItemQuantityAdjusted $event): void
     {
         $this->quantity = new Quantity($event->quantity());
     }

@@ -16,6 +16,7 @@
 
         <service class="Pamil\Cart\Write\Application\CommandHandler\AddCartItemHandler">
             <argument type="service" id="pamil.cart_write.cart_repository" />
+            <argument type="service" id="pamil.cart_write.product_catalogue" />
             <tag name="broadway.command_handler" />
         </service>
 
@@ -52,6 +53,15 @@
                     </argument>
                 </service>
             </argument>
+        </service>
+
+        <service id="pamil.cart_write.product_catalogue" class="Pamil\Cart\Write\Infrastructure\Repository\RedisProductCatalogue">
+            <argument type="service" id="snc_redis.default" />
+        </service>
+
+        <service class="Pamil\Cart\Write\Infrastructure\Projector\ProductCatalogueProjector">
+            <argument type="service" id="pamil.cart_write.product_catalogue" />
+            <tag name="broadway.domain.event_listener" />
         </service>
     </services>
 </container>

@@ -30,6 +30,7 @@ final class CartContext implements Context
 
         $this->sharedStorage = $sharedStorage;
         $this->sharedStorage->define('scenario', new InfrastructureReadScenario($eventBus));
+
         $this->repository = new InMemoryCartRepository();
 
         $eventBus->subscribe(new CartProjector($this->repository));
