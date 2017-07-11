@@ -13,6 +13,14 @@ cache:
     directories:
         - vendor
 
+env:
+    global:
+        - APP_ENV=test
+        - APP_DEBUG=1
+        - APP_SECRET=RickAstley
+        - DATABASE_URL="mysql://root@127.0.0.1:3306/symfony?charset=utf8mb4&serverVersion=5.7"
+        - REDIS_URL="redis://localhost"
+
 before_install:
     - phpenv config-rm xdebug.ini || true
 
@@ -20,10 +28,10 @@ install:
     - composer update --prefer-dist
 
 before_script:
-    - source .env.dist
+    - bin/console doctrine:database:create
 
 script:
     - composer validate --strict
 
-    - vendor/bin/phpunit || true
+    - vendor/bign/phpunit || true
     - vendor/bin/behat --strict -vvv --no-interaction
