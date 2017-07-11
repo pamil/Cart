@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Pamil\CommandCartBundle\Http;
 
-use Pamil\Cart\Write\Application\Exception\CartAlreadyPickedUpException;
-use Pamil\Cart\Write\Application\Exception\CartNotFoundException;
-use Pamil\Cart\Write\Domain\Exception\CartItemNotFoundException;
-use Pamil\Cart\Write\Domain\Exception\CartItemsLimitReachedException;
+use Pamil\CommandCart\Application\Exception\CartAlreadyPickedUpException;
+use Pamil\CommandCart\Application\Exception\CartNotFoundException;
+use Pamil\CommandCart\Domain\Exception\CartItemNotFoundException;
+use Pamil\CommandCart\Domain\Exception\CartItemsLimitReachedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;

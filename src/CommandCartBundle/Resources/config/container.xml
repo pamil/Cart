@@ -5,7 +5,7 @@
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
-        <service class="Pamil\Cart\Write\Application\CommandHandler\PickUpCartHandler">
+        <service class="Pamil\CommandCart\Application\CommandHandler\PickUpCartHandler">
             <argument type="service" id="pamil.command_cart.cart_repository" />
             <tag name="broadway.command_handler" />
         </service>
@@ -14,7 +14,7 @@
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
-        <service class="Pamil\Cart\Write\Application\CommandHandler\AddCartItemHandler">
+        <service class="Pamil\CommandCart\Application\CommandHandler\AddCartItemHandler">
             <argument type="service" id="pamil.command_cart.cart_repository" />
             <argument type="service" id="pamil.command_cart.product_catalogue" />
             <tag name="broadway.command_handler" />
@@ -24,7 +24,7 @@
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
-        <service class="Pamil\Cart\Write\Application\CommandHandler\AdjustCartItemQuantityHandler">
+        <service class="Pamil\CommandCart\Application\CommandHandler\AdjustCartItemQuantityHandler">
             <argument type="service" id="pamil.command_cart.cart_repository" />
             <tag name="broadway.command_handler" />
         </service>
@@ -33,7 +33,7 @@
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
-        <service class="Pamil\Cart\Write\Application\CommandHandler\RemoveCartItemHandler">
+        <service class="Pamil\CommandCart\Application\CommandHandler\RemoveCartItemHandler">
             <argument type="service" id="pamil.command_cart.cart_repository" />
             <tag name="broadway.command_handler" />
         </service>
@@ -42,12 +42,12 @@
             <tag name="kernel.event_listener" event="kernel.exception" method="__invoke" />
         </service>
 
-        <service id="pamil.command_cart.cart_repository" class="Pamil\Cart\Write\Infrastructure\Repository\BroadwayCartRepository">
+        <service id="pamil.command_cart.cart_repository" class="Pamil\CommandCart\Infrastructure\Repository\BroadwayCartRepository">
             <argument type="service">
                 <service class="Broadway\EventSourcing\EventSourcingRepository">
                     <argument type="service" id="broadway.event_store" />
                     <argument type="service" id="broadway.event_handling.event_bus" />
-                    <argument>Pamil\Cart\Write\Domain\Model\Cart</argument>
+                    <argument>Pamil\CommandCart\Domain\Model\Cart</argument>
                     <argument type="service">
                         <service class="Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory" />
                     </argument>
@@ -55,11 +55,11 @@
             </argument>
         </service>
 
-        <service id="pamil.command_cart.product_catalogue" class="Pamil\Cart\Write\Infrastructure\Repository\RedisProductCatalogue">
+        <service id="pamil.command_cart.product_catalogue" class="Pamil\CommandCart\Infrastructure\Repository\RedisProductCatalogue">
             <argument type="service" id="snc_redis.default" />
         </service>
 
-        <service class="Pamil\Cart\Write\Infrastructure\Projector\ProductCatalogueProjector">
+        <service class="Pamil\CommandCart\Infrastructure\Projector\ProductCatalogueProjector">
             <argument type="service" id="pamil.command_cart.product_catalogue" />
             <tag name="broadway.domain.event_listener" />
         </service>

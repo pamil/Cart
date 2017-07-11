@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Write\Domain\Model;
+namespace Tests\Pamil\CommandCart\Domain\Model;
 
 use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
 use Broadway\EventSourcing\Testing\AggregateRootScenarioTestCase;
-use Pamil\Cart\Common\Domain\Event\CartItemAdded;
-use Pamil\Cart\Common\Domain\Event\CartItemQuantityAdjusted;
-use Pamil\Cart\Common\Domain\Event\CartItemRemoved;
-use Pamil\Cart\Common\Domain\Event\CartPickedUp;
-use Pamil\Cart\Write\Domain\Model\Cart;
-use Pamil\Cart\Write\Domain\Model\CartId;
-use Pamil\Cart\Write\Domain\Model\Quantity;
-use Pamil\Cart\Write\Domain\Repository\ProductCatalogue;
+use Pamil\Cart\Domain\Event\CartItemAdded;
+use Pamil\Cart\Domain\Event\CartItemQuantityAdjusted;
+use Pamil\Cart\Domain\Event\CartItemRemoved;
+use Pamil\Cart\Domain\Event\CartPickedUp;
+use Pamil\CommandCart\Domain\Model\Cart;
+use Pamil\CommandCart\Domain\Model\CartId;
+use Pamil\CommandCart\Domain\Model\Quantity;
+use Pamil\CommandCart\Domain\Repository\ProductCatalogue;
 
 final class CartTest extends AggregateRootScenarioTestCase
 {
@@ -153,7 +153,7 @@ final class CartTest extends AggregateRootScenarioTestCase
     /**
      * @test
      *
-     * @expectedException \Pamil\Cart\Write\Domain\Exception\CartItemNotFoundException
+     * @expectedException \Pamil\CommandCart\Domain\Exception\CartItemNotFoundException
      */
     public function cart_item_fails_while_adjusting_quantity_if_it_was_not_added_before()
     {
@@ -172,7 +172,7 @@ final class CartTest extends AggregateRootScenarioTestCase
     /**
      * @test
      *
-     * @expectedException \Pamil\Cart\Write\Domain\Exception\CartItemNotFoundException
+     * @expectedException \Pamil\CommandCart\Domain\Exception\CartItemNotFoundException
      */
     public function cart_fails_while_removing_if_it_was_not_added_before()
     {
@@ -191,7 +191,7 @@ final class CartTest extends AggregateRootScenarioTestCase
     /**
      * @test
      *
-     * @expectedException \Pamil\Cart\Write\Domain\Exception\ProductNotFoundException
+     * @expectedException \Pamil\CommandCart\Domain\Exception\ProductNotFoundException
      */
     public function cart_fails_while_trying_to_add_unexisting_product(): void
     {
@@ -216,7 +216,7 @@ final class CartTest extends AggregateRootScenarioTestCase
     /**
      * @test
      *
-     * @expectedException \Pamil\Cart\Write\Domain\Exception\CartItemsLimitReachedException
+     * @expectedException \Pamil\CommandCart\Domain\Exception\CartItemsLimitReachedException
      */
     public function cart_fails_if_trying_to_add_more_than_three_different_products()
     {

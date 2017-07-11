@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Write\Application\CommandHandler;
+namespace Tests\Pamil\CommandCart\Application\CommandHandler;
 
 use Broadway\CommandHandling\CommandHandler;
 use Broadway\CommandHandling\Testing\CommandHandlerScenarioTestCase;
@@ -10,12 +10,12 @@ use Broadway\EventHandling\EventBus;
 use Broadway\EventSourcing\AggregateFactory\ReflectionAggregateFactory;
 use Broadway\EventSourcing\EventSourcingRepository;
 use Broadway\EventStore\EventStore;
-use Pamil\Cart\Common\Domain\Event\CartPickedUp;
-use Pamil\Cart\Write\Application\Command\PickUpCart;
-use Pamil\Cart\Write\Application\CommandHandler\PickUpCartHandler;
-use Pamil\Cart\Write\Domain\Model\Cart;
-use Pamil\Cart\Write\Domain\Model\CartId;
-use Pamil\Cart\Write\Infrastructure\Repository\BroadwayCartRepository;
+use Pamil\Cart\Domain\Event\CartPickedUp;
+use Pamil\CommandCart\Application\Command\PickUpCart;
+use Pamil\CommandCart\Application\CommandHandler\PickUpCartHandler;
+use Pamil\CommandCart\Domain\Model\Cart;
+use Pamil\CommandCart\Domain\Model\CartId;
+use Pamil\CommandCart\Infrastructure\Repository\BroadwayCartRepository;
 
 final class PickUpCartHandlerTest extends CommandHandlerScenarioTestCase
 {
@@ -49,7 +49,7 @@ final class PickUpCartHandlerTest extends CommandHandlerScenarioTestCase
     /**
      * @test
      *
-     * @expectedException \Pamil\Cart\Write\Application\Exception\CartAlreadyPickedUpException
+     * @expectedException \Pamil\CommandCart\Application\Exception\CartAlreadyPickedUpException
      */
     public function it_fails_if_trying_to_pick_up_the_same_cart_twice(): void
     {

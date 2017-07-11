@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Pamil\QueryCartBundle\Http\Action;
 
-use Pamil\Cart\Read\Application\Repository\CartRepository;
+use Pamil\QueryCart\Application\Repository\CartRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 

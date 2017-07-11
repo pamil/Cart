@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Write\Domain\Model;
+namespace Tests\Pamil\CommandCart\Domain\Model;
 
-use Pamil\Cart\Write\Domain\Model\CartId;
+use Pamil\CommandCart\Domain\Model\CartId;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

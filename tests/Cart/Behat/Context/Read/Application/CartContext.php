@@ -8,9 +8,9 @@ use Behat\Behat\Context\Context;
 use Broadway\EventHandling\SimpleEventBus;
 use Pamil\BroadwayScenarioHelper\Scenario\Read\InfrastructureReadScenario;
 use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
-use Pamil\Cart\Read\Application\Projector\CartProjector;
-use Pamil\Cart\Read\Domain\Model\Cart;
-use Pamil\Cart\Read\Infrastructure\Repository\InMemoryCartRepository;
+use Pamil\QueryCart\Application\Projector\CartProjector;
+use Pamil\QueryCart\Domain\Model\Cart;
+use Pamil\QueryCart\Infrastructure\Repository\InMemoryCartRepository;
 use PHPUnit\Framework\Assert;
 
 final class CartContext implements Context

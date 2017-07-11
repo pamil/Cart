@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Pamil\CommandCartBundle\Http\Action;
 
 use Broadway\CommandHandling\CommandBus;
-use Pamil\Cart\Write\Application\Command\RemoveCartItem;
+use Pamil\CommandCart\Application\Command\RemoveCartItem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

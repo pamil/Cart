@@ -13,20 +13,20 @@ use Broadway\EventSourcing\EventSourcingRepository;
 use Broadway\EventStore\InMemoryEventStore;
 use Pamil\BroadwayScenarioHelper\Scenario\Write\InfrastructureWriteScenario;
 use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
-use Pamil\Cart\Write\Application\Command\AddCartItem;
-use Pamil\Cart\Write\Application\Command\AdjustCartItemQuantity;
-use Pamil\Cart\Write\Application\Command\PickUpCart;
-use Pamil\Cart\Write\Application\Command\RemoveCartItem;
-use Pamil\Cart\Write\Application\CommandHandler\AddCartItemHandler;
-use Pamil\Cart\Write\Application\CommandHandler\AdjustCartItemQuantityHandler;
-use Pamil\Cart\Write\Application\CommandHandler\PickUpCartHandler;
-use Pamil\Cart\Write\Application\CommandHandler\RemoveCartItemHandler;
-use Pamil\Cart\Write\Application\Exception\CartAlreadyPickedUpException;
-use Pamil\Cart\Write\Domain\Model\Cart;
-use Pamil\Cart\Write\Domain\Model\CartId;
-use Pamil\Cart\Write\Infrastructure\Repository\BroadwayCartRepository;
-use Pamil\Cart\Write\Infrastructure\Repository\InMemoryProductCatalogue;
-use Pamil\Cart\Write\Infrastructure\Repository\ProductCatalogue;
+use Pamil\CommandCart\Application\Command\AddCartItem;
+use Pamil\CommandCart\Application\Command\AdjustCartItemQuantity;
+use Pamil\CommandCart\Application\Command\PickUpCart;
+use Pamil\CommandCart\Application\Command\RemoveCartItem;
+use Pamil\CommandCart\Application\CommandHandler\AddCartItemHandler;
+use Pamil\CommandCart\Application\CommandHandler\AdjustCartItemQuantityHandler;
+use Pamil\CommandCart\Application\CommandHandler\PickUpCartHandler;
+use Pamil\CommandCart\Application\CommandHandler\RemoveCartItemHandler;
+use Pamil\CommandCart\Application\Exception\CartAlreadyPickedUpException;
+use Pamil\CommandCart\Domain\Model\Cart;
+use Pamil\CommandCart\Domain\Model\CartId;
+use Pamil\CommandCart\Infrastructure\Repository\BroadwayCartRepository;
+use Pamil\CommandCart\Infrastructure\Repository\InMemoryProductCatalogue;
+use Pamil\CommandCart\Infrastructure\Repository\ProductCatalogue;
 
 final class CartContext implements Context
 {

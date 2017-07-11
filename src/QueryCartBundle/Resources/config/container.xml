@@ -5,11 +5,11 @@
             <argument type="service" id="pamil.query_cart.cart_repository" />
         </service>
 
-        <service id="pamil.query_cart.cart_repository" class="Pamil\Cart\Read\Infrastructure\Repository\RedisCartRepository">
+        <service id="pamil.query_cart.cart_repository" class="Pamil\QueryCart\Infrastructure\Repository\RedisCartRepository">
             <argument type="service" id="snc_redis.default" />
         </service>
 
-        <service class="Pamil\Cart\Read\Application\Projector\CartProjector">
+        <service class="Pamil\QueryCart\Application\Projector\CartProjector">
             <argument type="service" id="pamil.query_cart.cart_repository" />
             <tag name="broadway.domain.event_listener" />
         </service>

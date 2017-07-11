@@ -7,10 +7,10 @@ namespace Tests\Pamil\Cart\Behat\Context\Write\Common;
 use Behat\Behat\Context\Context;
 use Pamil\BroadwayScenarioHelper\Scenario\Write\WriteScenario;
 use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
-use Pamil\Cart\Common\Domain\Event\CartItemAdded;
-use Pamil\Cart\Common\Domain\Event\CartItemQuantityAdjusted;
-use Pamil\Cart\Common\Domain\Event\CartItemRemoved;
-use Pamil\Cart\Common\Domain\Event\CartPickedUp;
+use Pamil\Cart\Domain\Event\CartItemAdded;
+use Pamil\Cart\Domain\Event\CartItemQuantityAdjusted;
+use Pamil\Cart\Domain\Event\CartItemRemoved;
+use Pamil\Cart\Domain\Event\CartPickedUp;
 
 final class CartContext implements Context
 {

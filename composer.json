@@ -37,6 +37,9 @@
         "psr-4": {
             "Pamil\\Cart\\": "src/Cart/",
 
+            "Pamil\\CommandCart\\": "src/CommandCart/",
+            "Pamil\\QueryCart\\": "src/QueryCart/",
+
             "Pamil\\CommandCartBundle\\": "src/CommandCartBundle/",
             "Pamil\\QueryCartBundle\\": "src/QueryCartBundle/"
         },
