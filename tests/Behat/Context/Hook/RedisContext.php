@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Context\Hook;
+namespace Tests\Pamil\Behat\Context\Hook;
 
 use Behat\Behat\Context\Context;
 use Predis\Client;
