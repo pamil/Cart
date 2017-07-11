@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pamil\Cart\Write\Infrastructure\Http\Action;
+namespace Pamil\CommandCartBundle\Http\Action;
 
 use Broadway\CommandHandling\CommandBus;
 use Pamil\Cart\Write\Application\Command\PickUpCart;

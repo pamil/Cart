@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="pamil.command_cart.pick_up_cart.action" class="Pamil\Cart\Write\Infrastructure\Http\Action\PickUpCartAction">
+        <service id="pamil.command_cart.pick_up_cart.action" class="Pamil\CommandCartBundle\Http\Action\PickUpCartAction">
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
@@ -10,7 +10,7 @@
             <tag name="broadway.command_handler" />
         </service>
 
-        <service id="pamil.command_cart.add_cart_item.action" class="Pamil\Cart\Write\Infrastructure\Http\Action\AddCartItemAction">
+        <service id="pamil.command_cart.add_cart_item.action" class="Pamil\CommandCartBundle\Http\Action\AddCartItemAction">
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
@@ -20,7 +20,7 @@
             <tag name="broadway.command_handler" />
         </service>
 
-        <service id="pamil.command_cart.adjust_cart_item_quantity.action" class="Pamil\Cart\Write\Infrastructure\Http\Action\AdjustCartItemQuantityAction">
+        <service id="pamil.command_cart.adjust_cart_item_quantity.action" class="Pamil\CommandCartBundle\Http\Action\AdjustCartItemQuantityAction">
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
@@ -29,7 +29,7 @@
             <tag name="broadway.command_handler" />
         </service>
 
-        <service id="pamil.command_cart.remove_cart_item.action" class="Pamil\Cart\Write\Infrastructure\Http\Action\RemoveCartItemAction">
+        <service id="pamil.command_cart.remove_cart_item.action" class="Pamil\CommandCartBundle\Http\Action\RemoveCartItemAction">
             <argument type="service" id="broadway.command_handling.command_bus" />
         </service>
 
@@ -38,7 +38,7 @@
             <tag name="broadway.command_handler" />
         </service>
 
-        <service class="Pamil\Cart\Write\Infrastructure\Http\ExceptionListener">
+        <service class="Pamil\CommandCartBundle\Http\ExceptionListener">
             <tag name="kernel.event_listener" event="kernel.exception" method="__invoke" />
         </service>
 

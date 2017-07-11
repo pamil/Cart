@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pamil\Cart\Write\Infrastructure\Http;
+namespace Pamil\CommandCartBundle\Http;
 
 use Pamil\Cart\Write\Application\Exception\CartAlreadyPickedUpException;
 use Pamil\Cart\Write\Application\Exception\CartNotFoundException;
