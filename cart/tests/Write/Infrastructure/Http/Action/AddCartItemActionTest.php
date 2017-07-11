@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Pamil\Cart\Write\Infrastructure\Http\Action;
 
+use Pamil\Cart\Common\Domain\Event\CartPickedUp;
+use Pamil\Cart\Common\Domain\Event\ProductAddedToCatalogue;
 use Pamil\Cart\Write\Application\Command\AddCartItem;
 use Pamil\Cart\Write\Application\Command\PickUpCart;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -25,10 +27,11 @@ final class AddCartItemActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new PickUpCart('457e2ac8-8daf-47aa-a703-39b42d7f82ce'));
+        $client->getContainer()->get('broadway.event_handling.event_bus')->dispatch(new ProductAddedToCatalogue('Fallout'));
+        $client->getContainer()->get('broadway.event_handling.event_bus')->dispatch(new CartPickedUp('457e2ac8-8daf-47aa-a703-39b42d7f82ce'));
 
         $client->request('POST', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
-            'cartItemId' => 'Fallout',
+            'productId' => 'Fallout',
             'quantity' => 5,
         ]));
 
@@ -44,7 +47,7 @@ final class AddCartItemActionTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('POST', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
-            'cartItemId' => 'Fallout',
+            'productId' => 'Fallout',
             'quantity' => 5,
         ]));
 
@@ -65,7 +68,7 @@ final class AddCartItemActionTest extends WebTestCase
         $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new AddCartItem('457e2ac8-8daf-47aa-a703-39b42d7f82ce', 'Don\'t Starve', 5));
 
         $client->request('POST', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
-            'cartItemId' => 'Fallout',
+            'productId' => 'Fallout',
             'quantity' => 2,
         ]));
 
@@ -85,6 +88,6 @@ final class AddCartItemActionTest extends WebTestCase
         $response = $client->getResponse();
 
         $this->assertSame(400, $response->getStatusCode());
-        $this->assertSame('{"error":"The required option \"cartItemId\" is missing."}', $response->getContent());
+        $this->assertSame('{"error":"The required option \"productId\" is missing."}', $response->getContent());
     }
 }

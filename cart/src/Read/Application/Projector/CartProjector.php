@@ -32,7 +32,7 @@ final class CartProjector extends Projector
     {
         $cartDetails = $this->repository->get($message->getId());
 
-        $cartDetails->addItem($event->cartItemId(), $event->quantity());
+        $cartDetails->addItem($event->productId(), $event->quantity());
 
         $this->repository->save($cartDetails);
     }
@@ -41,7 +41,7 @@ final class CartProjector extends Projector
     {
         $cartDetails = $this->repository->get($message->getId());
 
-        $cartDetails->adjustItemQuantity($event->cartItemId(), $event->quantity());
+        $cartDetails->adjustItemQuantity($event->productId(), $event->quantity());
 
         $this->repository->save($cartDetails);
     }
@@ -50,7 +50,7 @@ final class CartProjector extends Projector
     {
         $cartDetails = $this->repository->get($message->getId());
 
-        $cartDetails->removeItem($event->cartItemId());
+        $cartDetails->removeItem($event->productId());
 
         $this->repository->save($cartDetails);
     }

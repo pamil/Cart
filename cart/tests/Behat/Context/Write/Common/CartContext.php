@@ -43,35 +43,35 @@ final class CartContext implements Context
     }
 
     /**
-     * @Then :number :cartItemId cart items should be added to the cart
+     * @Then :number :productId cart items should be added to the cart
      */
-    public function cartItemShouldBeAdded(int $number, string $cartItemId): void
+    public function cartItemShouldBeAdded(int $number, string $productId): void
     {
-        $this->scenario()->then(new CartItemAdded($cartItemId, $number));
+        $this->scenario()->then(new CartItemAdded($productId, $number));
     }
 
     /**
-     * @Then :number :cartItemId cart items should not be added to the cart
+     * @Then :number :productId cart items should not be added to the cart
      */
-    public function cartItemShouldNotBeAdded(int $number, string $cartItemId): void
+    public function cartItemShouldNotBeAdded(int $number, string $productId): void
     {
-        $this->scenario()->thenNot(new CartItemAdded($cartItemId, $number));
+        $this->scenario()->thenNot(new CartItemAdded($productId, $number));
     }
 
     /**
-     * @Then the :cartItemId cart item quantity should be adjusted to :number
+     * @Then the :productId cart item quantity should be adjusted to :number
      */
-    public function cartItemQuantityShouldBeAdjusted(string $cartItemId, int $number): void
+    public function cartItemQuantityShouldBeAdjusted(string $productId, int $number): void
     {
-        $this->scenario()->then(new CartItemQuantityAdjusted($cartItemId, $number));
+        $this->scenario()->then(new CartItemQuantityAdjusted($productId, $number));
     }
 
     /**
-     * @Then the :cartItemId cart item should be removed from the cart
+     * @Then the :productId cart item should be removed from the cart
      */
-    public function cartItemShouldBeRemoved(string $cartItemId): void
+    public function cartItemShouldBeRemoved(string $productId): void
     {
-        $this->scenario()->then(new CartItemRemoved($cartItemId));
+        $this->scenario()->then(new CartItemRemoved($productId));
     }
 
     private function scenario(): WriteScenario

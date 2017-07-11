@@ -10,15 +10,15 @@ final class AdjustCartItemQuantity
     private $cartId;
 
     /** @var string */
-    private $cartItemId;
+    private $productId;
 
     /** @var int */
     private $quantity;
 
-    public function __construct(string $cartId, string $cartItemId, int $quantity)
+    public function __construct(string $cartId, string $productId, int $quantity)
     {
         $this->cartId = $cartId;
-        $this->cartItemId = $cartItemId;
+        $this->productId = $productId;
         $this->quantity = $quantity;
     }
 
@@ -27,9 +27,9 @@ final class AdjustCartItemQuantity
         return $this->cartId;
     }
 
-    public function cartItemId(): string
+    public function productId(): string
     {
-        return $this->cartItemId;
+        return $this->productId;
     }
 
     public function quantity(): int

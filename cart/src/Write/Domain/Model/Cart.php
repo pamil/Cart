@@ -6,6 +6,7 @@ namespace Pamil\Cart\Write\Domain\Model;
 
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
 use Pamil\Cart\Common\Domain\Event\CartPickedUp;
+use Pamil\Cart\Write\Domain\Repository\ProductCatalogue;
 
 final class Cart extends EventSourcedAggregateRoot
 {
@@ -28,19 +29,19 @@ final class Cart extends EventSourcedAggregateRoot
         return $cart;
     }
 
-    public function addItem(string $cartItemId, Quantity $quantity): void
+    public function addItem(ProductCatalogue $productCatalogue, string $productId, Quantity $quantity): void
     {
-        $this->items->add($cartItemId, $quantity);
+        $this->items->add($productCatalogue, $productId, $quantity);
     }
 
-    public function removeItem(string $cartItemId): void
+    public function removeItem(string $productId): void
     {
-        $this->items->remove($cartItemId);
+        $this->items->remove($productId);
     }
 
-    public function adjustItemQuantity(string $cartItemId, Quantity $quantity): void
+    public function adjustItemQuantity(string $productId, Quantity $quantity): void
     {
-        $this->items->get($cartItemId)->adjustQuantity($quantity);
+        $this->items->get($productId)->adjustQuantity($quantity);
     }
 
     /** {@inheritdoc} */

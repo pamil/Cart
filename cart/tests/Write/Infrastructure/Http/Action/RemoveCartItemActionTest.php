@@ -29,7 +29,7 @@ final class RemoveCartItemActionTest extends WebTestCase
         $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new AddCartItem('457e2ac8-8daf-47aa-a703-39b42d7f82ce', 'Fallout', 3));
 
         $client->request('DELETE', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
-            'cartItemId' => 'Fallout',
+            'productId' => 'Fallout',
         ]));
 
         $response = $client->getResponse();
@@ -44,7 +44,7 @@ final class RemoveCartItemActionTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('DELETE', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
-            'cartItemId' => 'Fallout',
+            'productId' => 'Fallout',
         ]));
 
         $response = $client->getResponse();
@@ -61,13 +61,13 @@ final class RemoveCartItemActionTest extends WebTestCase
         $client->getContainer()->get('broadway.command_handling.command_bus')->dispatch(new PickUpCart('457e2ac8-8daf-47aa-a703-39b42d7f82ce'));
 
         $client->request('DELETE', '/457e2ac8-8daf-47aa-a703-39b42d7f82ce/items', [], [], [], json_encode([
-            'cartItemId' => 'Fallout',
+            'productId' => 'Fallout',
         ]));
 
         $response = $client->getResponse();
 
         $this->assertSame(409, $response->getStatusCode());
-        $this->assertSame('{"error":"Cart item with ID \"Fallout\" was not found in cart with ID \"457e2ac8-8daf-47aa-a703-39b42d7f82ce\"!"}', $response->getContent());
+        $this->assertSame('{"error":"Cart item being a product with ID \"Fallout\" was not found in cart with ID \"457e2ac8-8daf-47aa-a703-39b42d7f82ce\"!"}', $response->getContent());
     }
 
     /** @test */
@@ -80,6 +80,6 @@ final class RemoveCartItemActionTest extends WebTestCase
         $response = $client->getResponse();
 
         $this->assertSame(400, $response->getStatusCode());
-        $this->assertSame('{"error":"The required option \"cartItemId\" is missing."}', $response->getContent());
+        $this->assertSame('{"error":"The required option \"productId\" is missing."}', $response->getContent());
     }
 }

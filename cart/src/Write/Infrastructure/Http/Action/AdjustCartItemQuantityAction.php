@@ -23,7 +23,7 @@ final class AdjustCartItemQuantityAction
     {
         $this->commandBus = $commandBus;
         $this->optionsResolver = (new OptionsResolver())
-            ->setRequired('cartItemId')
+            ->setRequired('productId')
             ->setDefault('quantity', 1)
             ->setAllowedTypes('quantity', 'int')
         ;
@@ -34,7 +34,7 @@ final class AdjustCartItemQuantityAction
         /** @var array $content */
         $content = $this->optionsResolver->resolve(json_decode($request->getContent(), true) ?: []);
 
-        $this->commandBus->dispatch(new AdjustCartItemQuantity($cartId, $content['cartItemId'], $content['quantity']));
+        $this->commandBus->dispatch(new AdjustCartItemQuantity($cartId, $content['productId'], $content['quantity']));
 
         return new JsonResponse(null, 204);
     }

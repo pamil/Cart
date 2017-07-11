@@ -13,6 +13,7 @@ use Pamil\Cart\Common\Domain\Event\CartPickedUp;
 use Pamil\Cart\Write\Domain\Model\Cart;
 use Pamil\Cart\Write\Domain\Model\CartId;
 use Pamil\Cart\Write\Domain\Model\Quantity;
+use Pamil\Cart\Write\Domain\Repository\ProductCatalogue;
 
 final class CartTest extends AggregateRootScenarioTestCase
 {
@@ -53,7 +54,13 @@ final class CartTest extends AggregateRootScenarioTestCase
                 new CartPickedUp($cartId->toString()),
             ])
             ->when(function (Cart $cart) {
-                $cart->addItem('Fallout', new Quantity(2));
+                $cart->addItem(
+                    new class implements ProductCatalogue {
+                        public function has(string $productId): bool { return true; }
+                    },
+                    'Fallout',
+                    new Quantity(2)
+                );
             })
             ->then([
                 new CartItemAdded('Fallout', 2),
@@ -129,7 +136,13 @@ final class CartTest extends AggregateRootScenarioTestCase
                 new CartItemAdded('Fallout', 2),
             ])
             ->when(function (Cart $cart) {
-                $cart->addItem('Fallout', new Quantity(3));
+                $cart->addItem(
+                    new class implements ProductCatalogue {
+                        public function has(string $productId): bool { return true; }
+                    },
+                    'Fallout',
+                    new Quantity(3)
+                );
             })
             ->then([
                 new CartItemQuantityAdjusted('Fallout', 5),
@@ -178,6 +191,31 @@ final class CartTest extends AggregateRootScenarioTestCase
     /**
      * @test
      *
+     * @expectedException \Pamil\Cart\Write\Domain\Exception\ProductNotFoundException
+     */
+    public function cart_fails_while_trying_to_add_unexisting_product(): void
+    {
+        $cartId = CartId::generate();
+
+        $this->scenario
+            ->given([
+                new CartPickedUp($cartId->toString()),
+            ])
+            ->when(function (Cart $cart) {
+                $cart->addItem(
+                    new class implements ProductCatalogue {
+                        public function has(string $productId): bool { return false; }
+                    },
+                    'Fallout',
+                    new Quantity(2)
+                );
+            })
+        ;
+    }
+
+    /**
+     * @test
+     *
      * @expectedException \Pamil\Cart\Write\Domain\Exception\CartItemsLimitReachedException
      */
     public function cart_fails_if_trying_to_add_more_than_three_different_products()
@@ -193,7 +231,13 @@ final class CartTest extends AggregateRootScenarioTestCase
                 new CartItemAdded('Fallout', 1),
             ])
             ->when(function (Cart $cart) {
-                $cart->addItem('Bloodborne', new Quantity(2));
+                $cart->addItem(
+                    new class implements ProductCatalogue {
+                        public function has(string $productId): bool { return true; }
+                    },
+                    'Bloodborne',
+                    new Quantity(2)
+                );
             })
         ;
     }

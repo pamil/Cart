@@ -16,41 +16,53 @@ Feature: Managing the cart
 
     @write @domain @application @api
     Scenario: Adding cart item to the cart
-        Given the cart was picked up
+        Given product "Fallout" was added to the catalogue
+        And the cart was picked up
         When I add two "Fallout" cart items to that cart
         Then two "Fallout" cart items should be added to the cart
 
     @write @domain @application @api
-    Scenario: Removing cart items from the cart
+    Scenario: Trying to add unexisting product to the cart
         Given the cart was picked up
+        When I try to add two "Fallout" cart items to that cart
+        Then two "Fallout" cart items should not be added to the cart
+
+    @write @domain @application @api
+    Scenario: Removing cart items from the cart
+        Given product "Fallout" was added to the catalogue
+        And the cart was picked up
         And two "Fallout" cart items were added to the cart
         When I remove "Fallout" cart item from the cart
         Then the "Fallout" cart item should be removed from the cart
 
     @write @domain @application @api
     Scenario: Adjusting cart item quantity
-        Given the cart was picked up
+        Given product "Fallout" was added to the catalogue
+        And the cart was picked up
         And two "Fallout" cart items were added to the cart
         When I adjust "Fallout" cart item quantity to five
         Then the "Fallout" cart item quantity should be adjusted to five
 
     @write @domain @application @api
     Scenario: Adjusting cart item quantity to zero removes it instead
-        Given the cart was picked up
+        Given product "Fallout" was added to the catalogue
+        And the cart was picked up
         And two "Fallout" cart items were added to the cart
         When I adjust "Fallout" cart item quantity to zero
         Then the "Fallout" cart item should be removed from the cart
 
     @write @domain @application @api
     Scenario: Adding the same cart item twice increases its quantity
-        Given the cart was picked up
+        Given product "Fallout" was added to the catalogue
+        And the cart was picked up
         And two "Fallout" cart items were added to the cart
         When I add three "Fallout" cart items to that cart
         Then the "Fallout" cart item quantity should be adjusted to five
 
     @write @domain @application @api
     Scenario: Trying to add more than three different products to the cart
-        Given the cart was picked up
+        Given products "Fallout", "Baldur's Gate", "Bloodborne" and "Icewind Dale" were added to the catalogue
+        And the cart was picked up
         And three "Fallout" cart items were added to the cart
         And five "Baldur's Gate" cart items were added to the cart
         And seven "Bloodborne" cart items were added to the cart

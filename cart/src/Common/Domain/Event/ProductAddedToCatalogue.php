@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Pamil\Cart\Common\Domain\Event;
 
-use Broadway\Serializer\Serializable;
-
-final class CartItemRemoved implements Serializable
+final class ProductAddedToCatalogue
 {
     /** @var string */
     private $productId;

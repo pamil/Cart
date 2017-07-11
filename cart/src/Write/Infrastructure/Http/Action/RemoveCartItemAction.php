@@ -23,7 +23,7 @@ final class RemoveCartItemAction
     {
         $this->commandBus = $commandBus;
         $this->optionsResolver = (new OptionsResolver())
-            ->setRequired('cartItemId')
+            ->setRequired('productId')
         ;
     }
 
@@ -32,7 +32,7 @@ final class RemoveCartItemAction
         /** @var array $content */
         $content = $this->optionsResolver->resolve(json_decode($request->getContent(), true) ?: []);
 
-        $this->commandBus->dispatch(new RemoveCartItem($cartId, $content['cartItemId']));
+        $this->commandBus->dispatch(new RemoveCartItem($cartId, $content['productId']));
 
         return new JsonResponse(null, 204);
     }

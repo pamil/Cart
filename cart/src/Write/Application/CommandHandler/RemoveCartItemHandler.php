@@ -24,7 +24,7 @@ final class RemoveCartItemHandler implements CommandHandler
     {
         $cart = $this->cartRepository->get($command->cartId());
 
-        $cart->removeItem($command->cartItemId());
+        $cart->removeItem($command->productId());
 
         $this->cartRepository->save($cart);
     }

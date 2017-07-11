@@ -35,11 +35,11 @@ final class CartContext implements Context
     }
 
     /**
-     * @Given :number :cartItemId cart items were added to the cart
+     * @Given :number :productId cart items were added to the cart
      */
-    public function cartItemAdded(int $number, string $cartItemId): void
+    public function cartItemAdded(int $number, string $productId): void
     {
-        $this->scenario()->given(new CartItemAdded($cartItemId, $number));
+        $this->scenario()->given(new CartItemAdded($productId, $number));
     }
 
     private function scenario(): Scenario
