@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Storage;
+namespace Tests\Pamil\Behat\Storage;
 
 final class SharedStorage
 {

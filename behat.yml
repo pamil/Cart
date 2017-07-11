@@ -9,7 +9,7 @@ default:
 
         FriendsOfBehat\ContextServiceExtension:
             imports:
-                - "tests/Cart/Behat/Resources/config/container.xml"
+                - "tests/Behat/Resources/config/container.xml"
 
     suites:
         command_domain:

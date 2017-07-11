@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Context\Transform;
+namespace Tests\Pamil\Behat\Context\Transform;
 
 use Behat\Behat\Context\Context;
 

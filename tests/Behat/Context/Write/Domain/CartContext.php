@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Pamil\Cart\Behat\Context\Write\Domain;
+namespace Tests\Pamil\Behat\Context\Write\Domain;
 
 use Behat\Behat\Context\Context;
 use Pamil\BroadwayScenarioHelper\Scenario\Write\DomainWriteScenario;
@@ -11,7 +11,7 @@ use Pamil\CommandCart\Domain\Model\CartId;
 use Pamil\CommandCart\Domain\Model\Quantity;
 use Pamil\CommandCart\Infrastructure\Repository\InMemoryProductCatalogue;
 use Pamil\CommandCart\Infrastructure\Repository\ProductCatalogue;
-use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
+use Tests\Pamil\Behat\Storage\SharedStorage;
 
 final class CartContext implements Context
 {
