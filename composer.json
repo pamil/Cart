@@ -47,7 +47,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Pamil\\Cart\\": "tests/Cart/"
+            "Tests\\Pamil\\": "tests/"
         }
     }
 }
