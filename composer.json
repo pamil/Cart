@@ -35,12 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Pamil\\Cart\\": "src/"
+            "Pamil\\Cart\\": "src/Cart/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Pamil\\Cart\\": "tests/"
+            "Tests\\Pamil\\Cart\\": "tests/Cart/"
         }
     }
 }
