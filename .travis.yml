@@ -19,6 +19,9 @@ before_install:
 install:
     - composer update --prefer-dist
 
+before_script:
+    - source .env.dist
+
 script:
     - composer validate --strict
 
