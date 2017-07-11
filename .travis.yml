@@ -9,6 +9,9 @@ matrix:
         - php: nightly
     fast_finish: true
 
+services:
+    - redis-server
+
 cache:
     directories:
         - vendor
