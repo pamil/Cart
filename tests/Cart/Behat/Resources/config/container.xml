@@ -22,35 +22,35 @@
             <tag name="fob.context_service" />
         </service>
 
-        <service id="pamil_cart.context.write.common.cart" class="Tests\Pamil\Cart\Behat\Context\Write\Common\CartContext">
+        <service id="pamil_cart.context.command.common.cart" class="Tests\Pamil\Cart\Behat\Context\Write\Common\CartContext">
             <argument type="service" id="pamil_cart.shared_storage" />
             <tag name="fob.context_service" />
         </service>
 
-        <service id="pamil_cart.context.write.domain.cart" class="Tests\Pamil\Cart\Behat\Context\Write\Domain\CartContext">
+        <service id="pamil_cart.context.command.domain.cart" class="Tests\Pamil\Cart\Behat\Context\Write\Domain\CartContext">
             <argument type="service" id="pamil_cart.shared_storage" />
             <tag name="fob.context_service" />
         </service>
 
-        <service id="pamil_cart.context.write.application.cart" class="Tests\Pamil\Cart\Behat\Context\Write\Application\CartContext">
+        <service id="pamil_cart.context.command.application.cart" class="Tests\Pamil\Cart\Behat\Context\Write\Application\CartContext">
             <argument type="service" id="pamil_cart.shared_storage" />
             <tag name="fob.context_service" />
         </service>
 
-        <service id="pamil_cart.context.write.api.cart" class="Tests\Pamil\Cart\Behat\Context\Write\Api\CartContext">
+        <service id="pamil_cart.context.command.api.cart" class="Tests\Pamil\Cart\Behat\Context\Write\Api\CartContext">
             <argument type="service" id="pamil_cart.shared_storage" />
             <argument type="service" id="__symfony__.broadway.event_store" />
-            <argument type="service" id="__symfony__.pamil_cart.write.product_catalogue" />
+            <argument type="service" id="__symfony__.pamil.command_cart.product_catalogue" />
             <argument type="service" id="__symfony__.test.client" />
             <tag name="fob.context_service" />
         </service>
 
-        <service id="pamil_cart.context.read.application.cart" class="Tests\Pamil\Cart\Behat\Context\Read\Application\CartContext">
+        <service id="pamil_cart.context.query.application.cart" class="Tests\Pamil\Cart\Behat\Context\Read\Application\CartContext">
             <argument type="service" id="pamil_cart.shared_storage" />
             <tag name="fob.context_service" />
         </service>
 
-        <service id="pamil_cart.context.read.api.cart" class="Tests\Pamil\Cart\Behat\Context\Read\Api\CartContext">
+        <service id="pamil_cart.context.query.api.cart" class="Tests\Pamil\Cart\Behat\Context\Read\Api\CartContext">
             <argument type="service" id="pamil_cart.shared_storage" />
             <argument type="service" id="__symfony__.broadway.event_handling.event_bus" />
             <argument type="service" id="__symfony__.test.client" />

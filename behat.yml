@@ -12,53 +12,53 @@ default:
                 - "tests/Cart/Behat/Resources/config/container.xml"
 
     suites:
-        write_domain:
+        command_domain:
             contexts_services:
                 - pamil_cart.context.common.cart
                 - pamil_cart.context.transform.number
-                - pamil_cart.context.write.common.cart
-                - pamil_cart.context.write.domain.cart
+                - pamil_cart.context.command.common.cart
+                - pamil_cart.context.command.domain.cart
 
             filters:
-                tags: "@write && @domain"
+                tags: "@command && @domain"
 
-        write_application:
+        command_application:
             contexts_services:
                 - pamil_cart.context.common.cart
                 - pamil_cart.context.transform.number
-                - pamil_cart.context.write.application.cart
-                - pamil_cart.context.write.common.cart
+                - pamil_cart.context.command.application.cart
+                - pamil_cart.context.command.common.cart
 
             filters:
-                tags: "@write && @application"
+                tags: "@command && @application"
 
-        write_api:
+        command_api:
             contexts_services:
                 - pamil_cart.context.common.cart
                 - pamil_cart.context.hook.event_store
                 - pamil_cart.context.hook.redis
                 - pamil_cart.context.transform.number
-                - pamil_cart.context.write.api.cart
-                - pamil_cart.context.write.common.cart
+                - pamil_cart.context.command.api.cart
+                - pamil_cart.context.command.common.cart
 
             filters:
-                tags: "@write && @api"
+                tags: "@command && @api"
 
-        read_application:
+        query_application:
             contexts_services:
                 - pamil_cart.context.common.cart
-                - pamil_cart.context.read.application.cart
+                - pamil_cart.context.query.application.cart
                 - pamil_cart.context.transform.number
 
             filters:
-                tags: "@read && @application"
+                tags: "@query && @application"
 
-        read_api:
+        query_api:
             contexts_services:
                 - pamil_cart.context.common.cart
                 - pamil_cart.context.hook.redis
-                - pamil_cart.context.read.api.cart
+                - pamil_cart.context.query.api.cart
                 - pamil_cart.context.transform.number
 
             filters:
-                tags: "@read && @api"
+                tags: "@query && @api"
