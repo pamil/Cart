@@ -1,6 +1,6 @@
 <?php
 
-use Pamil\Cart\Common\Infrastructure\PamilCartKernel;
+use Pamil\Kernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ if (getenv('APP_DEBUG')) {
 
 // Request::setTrustedProxies(['0.0.0.0/0'], Request::HEADER_FORWARDED);
 
-$kernel = new PamilCartKernel(getenv('APP_ENV'), getenv('APP_DEBUG'));
+$kernel = new Kernel(getenv('APP_ENV'), getenv('APP_DEBUG'));
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();

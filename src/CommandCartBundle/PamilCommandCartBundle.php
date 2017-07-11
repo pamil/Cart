@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Pamil\Cart\Common\Infrastructure;
+namespace Pamil\CommandCartBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class PamilCartBundle extends Bundle
+final class PamilCommandCartBundle extends Bundle
 {
 
 }

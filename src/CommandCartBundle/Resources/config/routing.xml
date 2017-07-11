@@ -4,10 +4,6 @@
         <default key="_controller">pamil_cart.write.pick_up_cart.action</default>
     </route>
 
-    <route id="pamil_cart_show_cart_details" path="/{cartId}" methods="GET">
-        <default key="_controller">pamil_cart.read.show_cart_details.action</default>
-    </route>
-
     <route id="pamil_cart_add_cart_item" path="/{cartId}/items" methods="POST">
         <default key="_controller">pamil_cart.write.add_cart_item.action</default>
     </route>

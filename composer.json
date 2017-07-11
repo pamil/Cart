@@ -35,8 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Pamil\\Cart\\": "src/Cart/"
-        }
+            "Pamil\\Cart\\": "src/Cart/",
+
+            "Pamil\\CommandCartBundle\\": "src/CommandCartBundle/",
+            "Pamil\\QueryCartBundle\\": "src/QueryCartBundle/"
+        },
+        "classmap": ["src/Kernel.php"]
     },
     "autoload-dev": {
         "psr-4": {
