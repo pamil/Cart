@@ -6,8 +6,8 @@ namespace Tests\Pamil\Cart\Behat\Context\Read\Api;
 
 use Behat\Behat\Context\Context;
 use Broadway\EventHandling\EventBus;
-use FriendsOfBehat\BroadwayExtension\Scenario\Read\InfrastructureReadScenario;
-use FriendsOfBehat\BroadwayExtension\Storage\SharedStorage;
+use Pamil\BroadwayScenarioHelper\Scenario\Read\InfrastructureReadScenario;
+use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 use PHPUnit\Framework\Assert;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Response;

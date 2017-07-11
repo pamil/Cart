@@ -6,8 +6,8 @@ namespace Tests\Pamil\Cart\Behat\Context\Read\Application;
 
 use Behat\Behat\Context\Context;
 use Broadway\EventHandling\SimpleEventBus;
-use FriendsOfBehat\BroadwayExtension\Scenario\Read\InfrastructureReadScenario;
-use FriendsOfBehat\BroadwayExtension\Storage\SharedStorage;
+use Pamil\BroadwayScenarioHelper\Scenario\Read\InfrastructureReadScenario;
+use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 use Pamil\Cart\Read\Application\Projector\CartProjector;
 use Pamil\Cart\Read\Domain\Model\Cart;
 use Pamil\Cart\Read\Infrastructure\Repository\InMemoryCartRepository;

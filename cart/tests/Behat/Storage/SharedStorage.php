@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FriendsOfBehat\BroadwayExtension\Storage;
+namespace Tests\Pamil\Cart\Behat\Storage;
 
 final class SharedStorage
 {

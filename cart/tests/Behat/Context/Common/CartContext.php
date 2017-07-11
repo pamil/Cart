@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Pamil\Cart\Behat\Context\Common;
 
 use Behat\Behat\Context\Context;
-use FriendsOfBehat\BroadwayExtension\Scenario\Scenario;
-use FriendsOfBehat\BroadwayExtension\Storage\SharedStorage;
+use Pamil\BroadwayScenarioHelper\Scenario\Scenario;
+use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 use Pamil\Cart\Common\Domain\Event\CartItemAdded;
 use Pamil\Cart\Common\Domain\Event\CartPickedUp;
 use Pamil\Cart\Write\Domain\Model\CartId;

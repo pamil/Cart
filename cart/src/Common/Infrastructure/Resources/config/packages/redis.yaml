@@ -3,4 +3,4 @@ snc_redis:
         default:
             type: predis
             alias: default
-            dsn: redis://localhost # TODO: Why can't I use `%env(REDIS_URL)%`?
+            dsn: redis://redis
