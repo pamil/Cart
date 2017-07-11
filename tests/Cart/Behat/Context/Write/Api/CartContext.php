@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Tests\Pamil\Cart\Behat\Context\Write\Api;
 
 use Behat\Behat\Context\Context;
-use Broadway\EventHandling\EventBus;
 use Broadway\EventStore\EventStore;
 use Pamil\BroadwayScenarioHelper\Scenario\Write\InfrastructureWriteScenario;
-use Pamil\Cart\Domain\Event\ProductAddedToCatalogue;
-use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 use Pamil\CommandCart\Domain\Model\CartId;
 use Pamil\CommandCart\Infrastructure\Repository\ProductCatalogue;
 use Symfony\Bundle\FrameworkBundle\Client;
+use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 
 final class CartContext implements Context
 {

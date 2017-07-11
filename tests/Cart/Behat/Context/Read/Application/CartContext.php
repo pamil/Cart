@@ -7,11 +7,11 @@ namespace Tests\Pamil\Cart\Behat\Context\Read\Application;
 use Behat\Behat\Context\Context;
 use Broadway\EventHandling\SimpleEventBus;
 use Pamil\BroadwayScenarioHelper\Scenario\Read\InfrastructureReadScenario;
-use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 use Pamil\QueryCart\Application\Projector\CartProjector;
 use Pamil\QueryCart\Domain\Model\Cart;
 use Pamil\QueryCart\Infrastructure\Repository\InMemoryCartRepository;
 use PHPUnit\Framework\Assert;
+use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 
 final class CartContext implements Context
 {

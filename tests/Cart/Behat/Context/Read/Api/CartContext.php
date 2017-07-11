@@ -7,10 +7,10 @@ namespace Tests\Pamil\Cart\Behat\Context\Read\Api;
 use Behat\Behat\Context\Context;
 use Broadway\EventHandling\EventBus;
 use Pamil\BroadwayScenarioHelper\Scenario\Read\InfrastructureReadScenario;
-use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 use PHPUnit\Framework\Assert;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 
 final class CartContext implements Context
 {

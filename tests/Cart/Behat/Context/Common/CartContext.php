@@ -6,10 +6,10 @@ namespace Tests\Pamil\Cart\Behat\Context\Common;
 
 use Behat\Behat\Context\Context;
 use Pamil\BroadwayScenarioHelper\Scenario\Scenario;
-use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 use Pamil\Cart\Domain\Event\CartItemAdded;
 use Pamil\Cart\Domain\Event\CartPickedUp;
 use Pamil\CommandCart\Domain\Model\CartId;
+use Tests\Pamil\Cart\Behat\Storage\SharedStorage;
 
 final class CartContext implements Context
 {
